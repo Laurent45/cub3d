@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 08:11:12 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/21 17:24:17 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:44:14 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,20 @@ typedef struct s_seg
 	t_point	b;
 }	t_seg;
 
+typedef struct s_view
+{
+	double	angle;
+	t_point	v_front;
+	t_point	v_side;
+}	t_view;
+
 typedef struct s_player
 {
 	t_point	pos;
-	t_point	dir_view;
-	double	angle_view;
+	t_view	view;
+	double	f_front;
+	double	f_side;
 }	t_player;
-
-typedef struct s_core
-{
-	void		*mlx;
-	void		*win;
-	t_player	player;
-}	t_core;
 
 typedef struct s_img_info
 {
@@ -48,10 +49,12 @@ typedef struct s_img_info
 	int		endian;	
 }	t_img_info;
 
-typedef struct s_hook
+typedef struct s_core
 {
-	struct s_core		*core;
-	struct s_img_info	*img;
-}	t_hook;
+	void		*mlx;
+	void		*win;
+	t_img_info	main_img;
+	t_player	player;
+}	t_core;
 
 #endif

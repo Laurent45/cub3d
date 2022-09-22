@@ -6,31 +6,48 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:45:47 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/21 15:39:31 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:28:40 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "draw.h"
 #include "image.h"
 #include "init.h"
 #include "mlx.h"
 
-#include <stddef.h>
+#include <stdlib.h>
 
-void	create_map(t_core *core, t_img_info *img);
+int	map[12][12] = {
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
+
+void	clear_mlx(t_core *core)
+{
+	mlx_destroy_image(core->mlx, core->main_img.img);
+	mlx_destroy_window(core->mlx, core->win);
+	mlx_destroy_display(core->mlx);
+	free(core->mlx);
+}
 
 int	main()
 {
 	t_core		core;
-	t_img_info	img;
-	t_hook		hook;
 
 	init_mlx(&core);
-	img.img = NULL;
-	init_hook(&hook, &core, &img);
-	create_img(&core, &img);
+	init_hook(&core);
+	create_img(&core);
 	
 	mlx_loop(core.mlx);
-
-	return (0);
+	clear_mlx(&core);
 }
-

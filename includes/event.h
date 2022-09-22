@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.h                                             :+:      :+:    :+:   */
+/*   event.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 11:51:53 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/21 18:17:16 by lfrederi         ###   ########.fr       */
+/*   Created: 2022/09/22 17:10:01 by lfrederi          #+#    #+#             */
+/*   Updated: 2022/09/22 17:42:40 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOOK_H
-# define HOOK_H
+#ifndef EVENT_H
+# define EVENT_H
 
 # include "struct.h"
 
@@ -28,26 +28,26 @@
 /**
  *
  */
-int		close_red(void *hook);
+int		close_red(void *vars);
 
 /**
  *
  */
-int		key_press(int keycode, void *hook);
+int		key_press(int keycode, void *vars);
 
 /**
  *
  */
-int		move_player(t_player *player, int keycode);
+void	press_esc(t_core *core);
 
 /**
  *
  */
-void	move_dir_view(t_player *player, int keycode);
+int		move_player(t_core *core, int keycode);
 
 /**
  *
  */
-void	press_esc(t_hook *hook);
+void	move_dir_view(t_core *core, int keycode);
 
 #endif

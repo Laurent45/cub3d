@@ -6,7 +6,7 @@
 #    By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 09:06:04 by lfrederi          #+#    #+#              #
-#    Updated: 2022/09/21 12:42:33 by lfrederi         ###   ########.fr        #
+#    Updated: 2022/09/22 17:44:54 by lfrederi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,13 @@ _CYAN=	$'\033[36m
 _WHITE=	$'\033[37m
 _END= 	$'\033[37m
 
-SRCS	= $(addprefix sources/, main.c init.c)\
-		  $(addprefix sources/image/, create.c draw_segment.c put_pixel.c draw_player.c)\
-		  $(addprefix sources/hook/, hook_function.c action.c)
+SRCS	= $(addprefix sources/, main.c)\
+		  $(addprefix sources/init/, init.c)\
+		  $(addprefix sources/draw/, draw_player.c draw_segment.c draw_rectangle.c draw_map.c)\
+		  $(addprefix sources/image/, create.c put_pixel.c)\
+		  $(addprefix sources/event/, action.c move_player.c move_view.c press_esc.c)
 
-HEADERS = 	
+HEADERS = $(addprefix includes/, init.h struct.h draw.h event.h image.h)
 
 OBJS_PATH	= objs/
 OBJS		= $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
@@ -47,14 +49,14 @@ CC		= cc
 RM		= rm -rf
 CFLAGS	= -Wall -Wextra -Werror -g
 
-$(OBJS_PATH)%.o: %.c ${HEADERS}
+${OBJS_PATH}%.o: %.c ${HEADERS}
 	@mkdir -p $(dir $@)
 	@${CC} ${CFLAGS} ${IFLAGS} -c $< -o $@
 	@printf "%-15s ${_YELLOW}${_BOLD}$<${_END}...\n" "Compiling"	
 
-all: libft_make minilibx_make ${NAME}
+all: libft_make minilibx_make ${HEADERS} ${NAME}
 
-${NAME}: ${OBJS} ${HEADERS}
+${NAME}: ${OBJS}
 	@printf "%-15s ${_YELLOW}${_BOLD}$<${_END}...\n" "Compiling"	
 	@${CC} ${CFLAGS} ${OBJS} ${LIBRARY} ${LIBFLAG} -o ${NAME}
 	@printf "\n${_GREEN}${_BOLD}${NAME} OK${_END}\n"

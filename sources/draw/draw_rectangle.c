@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image.h                                            :+:      :+:    :+:   */
+/*   draw_rectangle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 08:41:43 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/22 18:27:37 by lfrederi         ###   ########.fr       */
+/*   Created: 2022/09/22 09:21:10 by lfrederi          #+#    #+#             */
+/*   Updated: 2022/09/22 09:38:59 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IMAGE_H
-# define IMAGE_H
+#include "draw.h"
 
-#include "struct.h"
+void	draw_rectangle(t_point center, size_t size, int color, t_img_info *img)
+{
+	t_point	a;
+	t_point	b;
+	int	y_end;
 
-/**
- *
- */
-void	put_pixel_img(t_img_info *img, int x, int y, int color);
-
-/**
- *
- */
-void	create_img(t_core *core);
-
-#endif
+	a.x = center.x - size / 2;
+	a.y = center.y - size / 2;
+	b.x = center.x + size / 2;
+	y_end = center.y + size / 2;
+	while (a.y <= y_end)
+	{
+		b.y = a.y;
+		draw_segment(a, b, color, img);
+		a.y++;
+	}
+}

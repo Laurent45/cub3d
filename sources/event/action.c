@@ -1,44 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook_function.c                                    :+:      :+:    :+:   */
+/*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 11:50:33 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/21 18:21:48 by lfrederi         ###   ########.fr       */
+/*   Created: 2022/09/21 12:15:11 by lfrederi          #+#    #+#             */
+/*   Updated: 2022/09/22 18:30:05 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hook.h"
-#include "init.h"
-#include "image.h"
+#include "event.h"
 #include "mlx.h"
-#include <stdio.h>
 
-int	close_red(void *hook)
+int	close_red(void *vars)
 {
-	return (mlx_loop_end(((t_hook *) hook)->core->mlx));
+	return (mlx_loop_end(((t_core *) vars)->mlx));
 }
 
-int	key_press(int keycode, void *hook)
+int	key_press(int keycode, void *vars)
 {
-	t_hook	*vars;
+	t_core	*core;
 
-	vars = (t_hook *) hook;
+	core = (t_core *) vars;
 	if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S\
 		|| keycode == KEY_D)
-	{
-		if (move_player(&vars->core->player, keycode) == SUCCESS)
-			create_img(vars->core, vars->img);
-	}
+		move_player(core, keycode);
 	if (keycode == ARROW_RIGHT || keycode == ARROW_LEFT)
-	{
-		move_dir_view(&vars->core->player, keycode);
-		create_img(vars->core, vars->img);
-	}
+		move_dir_view(core, keycode);
 	if (keycode == ESC)
-		press_esc(vars);
+		press_esc(core);
 
 	return (0);
 }
