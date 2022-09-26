@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:09:36 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 12:10:37 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:53:15 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,9 @@
  */
 void	set_values(t_point *point, int x, int y);
 
+/**
+ *
+ */
+int		abs(int x);
 
 #endif

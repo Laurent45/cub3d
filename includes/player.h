@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:13:13 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 11:57:16 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:15:58 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # define PLAYER_COLOR	0x00FF00
 
 # define PI				3.141593
-# define VIEW_SIZE		15.0
+# define RAD			0.01745329
+# define VIEW_SIZE		30.0
 # define VIEW_INCR		0.1745329
 # define VIEW_COLOR		0x000000
 
@@ -30,6 +31,10 @@
 # define NORTH			3.0 * PI / 2.0
 # define EST			0
 # define WEST			PI
+
+# define FOV			120.0
+# define FOV_SIZE		VIEW_SIZE / 2
+# define FOV_COLOR		0x999900
 
 /**
  *

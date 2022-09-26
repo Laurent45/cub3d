@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 08:18:33 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 12:05:53 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:15:37 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define WIN_HEIGHT	720
 # define WIN_TITLE	"Cub3d"
 
-# define SIZE_CUBE	60
+# define SIZE_CUBE	60.0
 # define EMPTY_CUBE	0xFFFFFF
 # define WALL_CUBE	0x009999
 

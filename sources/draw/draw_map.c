@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:12:09 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/22 15:22:07 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:26:23 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,15 @@ void	draw_map(t_img_info *img)
 			a.x = (j * SIZE_CUBE) + SIZE_CUBE / 2;
 			a.y = (i * SIZE_CUBE) + SIZE_CUBE / 2;
 			if (map[i][j] == 0)
-				draw_rectangle(a, SIZE_CUBE, EMPTY_CUBE, img);
+			{
+				draw_rect(a, SIZE_CUBE, 0x000000, img);
+				draw_rect_fill(a, SIZE_CUBE - 1, EMPTY_CUBE, img);
+			}
 			else
-				draw_rectangle(a, SIZE_CUBE, WALL_CUBE, img);
+			{
+				draw_rect(a, SIZE_CUBE, 0x000000, img);
+				draw_rect_fill(a, SIZE_CUBE - 1, WALL_CUBE, img);
+			}
 			j++;
 		}
 		i++;

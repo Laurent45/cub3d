@@ -6,11 +6,12 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:30:49 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/21 15:28:10 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:52:45 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "image.h"
+#include "utils.h"
 
 static void	init_increment(t_point a, t_point b, int increment[2])
 {
@@ -24,13 +25,6 @@ static void	init_increment(t_point a, t_point b, int increment[2])
 		increment[1] = -1;
 	if (a.y == b.y)
 		increment[1] = 0;
-}
-
-static int	abs(int x)
-{
-	if (x < 0)
-		return (-x);
-	return (x);
 }
 
 static void	draw_dx(t_seg seg, int color, t_img_info *img, int incr[2])

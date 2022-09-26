@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 09:36:18 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/22 17:22:21 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:11:41 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void	draw_player(t_point pos, t_player *player, t_img_info *img);
 /**
  *
  */
-void	draw_rectangle(t_point center, size_t size, int color, t_img_info *img);
+void	draw_rect(t_point center, size_t size, int color, t_img_info *img);
+
+/**
+ *
+ */
+void	draw_rect_fill(t_point center, size_t size, int color, t_img_info *img);
 
 #endif

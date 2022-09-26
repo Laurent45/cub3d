@@ -6,13 +6,13 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 09:21:10 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/22 09:38:59 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:27:18 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "draw.h"
 
-void	draw_rectangle(t_point center, size_t size, int color, t_img_info *img)
+void	draw_rect_fill(t_point center, size_t size, int color, t_img_info *img)
 {
 	t_point	a;
 	t_point	b;
@@ -28,4 +28,23 @@ void	draw_rectangle(t_point center, size_t size, int color, t_img_info *img)
 		draw_segment(a, b, color, img);
 		a.y++;
 	}
+}
+
+void	draw_rect(t_point center, size_t size, int color, t_img_info *img)
+{
+	t_point	a;
+	t_point	b;
+
+	a.x = center.x - size / 2;
+	a.y = center.y - size / 2;
+	b.x = center.x + size / 2;
+	b.y = a.y;
+	draw_segment(a, b, color, img);
+	b.y = center.y + size / 2;
+	draw_segment(a, b, color, img);
+	a.x = center.x + size / 2;
+	a.y = b.y;
+	draw_segment(a, b, color, img);
+	b.x = a.x;
+	b.y = center.y - size / 2;
 }
