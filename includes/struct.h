@@ -6,12 +6,15 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 08:11:12 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/22 16:44:14 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:06:18 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+# define SUCCESS	0
+# define FAILED		1
 
 typedef struct s_point
 {

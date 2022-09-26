@@ -1,41 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 08:18:33 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 12:05:53 by lfrederi         ###   ########.fr       */
+/*   Created: 2022/09/26 11:13:13 by lfrederi          #+#    #+#             */
+/*   Updated: 2022/09/26 11:57:16 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef PLAYER_H
+# define PLAYER_H
 
 # include "struct.h"
 
-# define WIN_WIDTH	720
-# define WIN_HEIGHT	720
-# define WIN_TITLE	"Cub3d"
+# define PLAYER_X		100
+# define PLAYER_Y		100
+# define PLAYER_W		10
+# define PLAYER_SPEED	0.5
+# define PLAYER_COLOR	0x00FF00
 
-# define SIZE_CUBE	60
-# define EMPTY_CUBE	0xFFFFFF
-# define WALL_CUBE	0x009999
+# define PI				3.141593
+# define VIEW_SIZE		15.0
+# define VIEW_INCR		0.1745329
+# define VIEW_COLOR		0x000000
 
-/**
- *
- */
-void	init_mlx(t_core *core);
-
-/**
- *
- */
-void	set_values(t_point *point, int x, int y);
+# define SOUTH			PI / 2.0
+# define NORTH			3.0 * PI / 2.0
+# define EST			0
+# define WEST			PI
 
 /**
  *
  */
-void	init_hook(t_core *core);
+void	init_player(t_player *player);
+
+/**
+ *
+ */
+void	update_view(t_player *player);
+
+/**
+ *
+ */
+void	update_pos(t_player *player);
 
 #endif

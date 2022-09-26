@@ -6,11 +6,12 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 09:57:39 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/22 18:47:59 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 11:33:00 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "draw.h"
+#include "player.h"
 #include "init.h"
 
 static void	draw_dir_view(t_point pos, t_player *player, t_img_info *img)
