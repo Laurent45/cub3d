@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 12:09:36 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 20:07:13 by lfrederi         ###   ########.fr       */
+/*   Created: 2022/09/26 16:41:17 by lfrederi          #+#    #+#             */
+/*   Updated: 2022/09/26 16:42:57 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef RAYCASTING_H
+# define RAYCASTING_H
 
 # include "struct.h"
 
-/**
+/*
  *
  */
-void	set_values(t_point *point, int x, int y);
-
-/**
- *
- */
-int		abs(int x);
-
-/**
- *
- */
-double	set_angle(double angle);
-
+void	horizontal_intersec(t_point pos, t_player *player, double current_ray, t_img_info *img);
 #endif

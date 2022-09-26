@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:10:09 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 14:53:27 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:13:33 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_player(t_player *player)
 {
 	player->pos.x = PLAYER_X;
 	player->pos.y = PLAYER_Y;
-	player->view.angle = SOUTH;
+	player->view.angle = NORTH;
 	update_view(player);
 	player->f_front = 0.0;
 	player->f_side = 0.0;
