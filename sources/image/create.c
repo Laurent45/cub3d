@@ -6,12 +6,13 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:25:48 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 19:59:57 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:33:23 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "image.h"
-#include "draw.h"
+#include "player.h"
+#include "utils.h"
 #include "init.h"
 #include "mlx.h"
 

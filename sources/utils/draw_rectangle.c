@@ -6,11 +6,11 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 09:21:10 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 14:27:18 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:29:28 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "draw.h"
+#include "utils.h"
 
 void	draw_rect_fill(t_point center, size_t size, int color, t_img_info *img)
 {

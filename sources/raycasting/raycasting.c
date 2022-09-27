@@ -6,19 +6,19 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:52:38 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 20:54:47 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:34:26 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 #include "player.h"
 #include "init.h"
-#include "draw.h"
+#include "utils.h"
 #include <math.h>
 
-void	horizontal_intersec(t_point pos, t_player *player, double current_ray, t_img_info *img)
+void	horizontal_intersec(t_player *player, double curr_ray, t_img_info *img)
 {
-	(void) player;
+	double	tmp;
 	t_point	a;
 
 	// Find coordinate of A
@@ -26,17 +26,43 @@ void	horizontal_intersec(t_point pos, t_player *player, double current_ray, t_im
 	 * Which block chose according to angle of current ray.
 	 * Either the block above the line (-1) or the block below the line (+64)
 	 */
-	if (current_ray >= WEST && current_ray <= 2 * PI)
-		a.y = ((int) floor(pos.y / SIZE_CUBE)) * SIZE_CUBE - 1;
+	if (curr_ray >= WEST)
+		a.y = ((int) floor(player->pos.y / SIZE_CUBE)) * SIZE_CUBE - 1;
 	else
-		a.y = ((int) floor(pos.y / SIZE_CUBE)) * SIZE_CUBE + SIZE_CUBE;
+		a.y = ((int) floor(player->pos.y / SIZE_CUBE)) * SIZE_CUBE + SIZE_CUBE;
 	//a.y /= SIZE_CUBE;
 	/*
 	 * Calculate x coordinate of A. tan (ALPHA) = (p.y - a.y) / (a.x - p.x)
-	 * Be carreful wich quadrant you are
 	 */
-	a.x = round(((pos.y - a.y) / tan(current_ray)) + pos.x);
+	tmp = (a.y - player->pos.y) / tan(curr_ray);
+	a.x = player->pos.x + round(tmp);
 	//a.x /= SIZE_CUBE;
-	draw_segment(a, pos, FOV_COLOR, img);
+	if (a.x >= 0 && a.x <= WIN_WIDTH)
+		draw_segment(a, player->pos, FOV_COLOR, img);
 
+}
+
+void	vertical_intersec(t_player *player, double curr_ray, t_img_info *img)
+{
+	double	tmp;
+	t_point	a;
+
+	// Find coordinate of A
+	/*
+	 * Which block chose according to angle of current ray.
+	 * Either the block above the line (-1) or the block below the line (+64)
+	 */
+	if (curr_ray >= NORTH || curr_ray <= SOUTH)
+		a.x = ((int) floor(player->pos.x / SIZE_CUBE)) * SIZE_CUBE + SIZE_CUBE;
+	else
+		a.x = ((int) floor(player->pos.x / SIZE_CUBE)) * SIZE_CUBE - 1;
+	//a.x /= SIZE_CUBE;
+	/*
+	 * Calculate y coordinate of A. tan (ALPHA) = (p.y - a.y) / (a.x - p.x)
+	 */
+	tmp = (player->pos.x - a.x) * tan(curr_ray);
+	a.y = player->pos.y - round(tmp);
+	//a.y /= SIZE_CUBE;
+	if (a.y >= 0 && a.y <= WIN_WIDTH)
+		draw_segment(a, player->pos, FOV_COLOR_2, img);
 }

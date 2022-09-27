@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:08:48 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 20:06:53 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 13:37:22 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	abs(int x)
 
 double	set_angle(double angle)
 {
-	if (angle < 0)
+	if (angle < 0.0)
 		return ((2 * PI) + angle);
 	if (angle >= 2 * PI)
 		return (angle - (2 * PI));

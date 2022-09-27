@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:04:20 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 19:58:21 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:11:49 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	move_player(t_core *core, int keycode)
 		player->f_side -= PLAYER_SPEED; 
 	if (keycode == KEY_D)
 		player->f_side += PLAYER_SPEED; 
+	update_pos(player);
 	main_img(core);
 	return (SUCCESS);
 }

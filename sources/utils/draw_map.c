@@ -6,11 +6,11 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:12:09 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 14:26:23 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:34:07 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "draw.h"
+#include "utils.h"
 #include "init.h"
 
 extern int map[12][12];

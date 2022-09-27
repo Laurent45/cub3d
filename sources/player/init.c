@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update.c                                           :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:10:09 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 20:13:33 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:13:35 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	init_player(t_player *player)
 {
 	player->pos.x = PLAYER_X;
 	player->pos.y = PLAYER_Y;
-	player->view.angle = NORTH;
-	update_view(player);
+	player->pos_tmp.x = PLAYER_X;
+	player->pos_tmp.y = PLAYER_Y;
+	player->view.angle = PLAYER_DIR;
+	update_view_vector(player);
 	player->f_front = 0.0;
 	player->f_side = 0.0;
 }
 
-void	update_view(t_player *player)
+void	update_view_vector(t_player *player)
 {
 	t_view	*view;
 
@@ -36,10 +38,18 @@ void	update_view(t_player *player)
 
 void	update_pos(t_player *player)
 {
+		player->pos.x = player->pos_tmp.x;
 		player->pos.x += (player->view.v_front.x * player->f_front);
 		player->pos.x += (player->view.v_side.x * player->f_side);
+		player->pos.y = player->pos_tmp.y;
 		player->pos.y += (player->view.v_front.y * player->f_front);
 		player->pos.y += (player->view.v_side.y * player->f_side);
+}
+
+void	reset_pos(t_player *player)
+{
+		player->pos_tmp.x = player->pos.x;
+		player->pos_tmp.y = player->pos.y;
 		player->f_side = 0.0;
 		player->f_front = 0.0;
 }

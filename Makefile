@@ -6,7 +6,7 @@
 #    By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 09:06:04 by lfrederi          #+#    #+#              #
-#    Updated: 2022/09/26 16:45:01 by lfrederi         ###   ########.fr        #
+#    Updated: 2022/09/27 15:33:50 by lfrederi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,14 @@ _END= 	$'\033[37m
 
 SRCS	= $(addprefix sources/, main.c)\
 		  $(addprefix sources/init/, init.c)\
-		  $(addprefix sources/draw/, draw_player.c draw_segment.c draw_rectangle.c draw_map.c)\
 		  $(addprefix sources/image/, create.c put_pixel.c)\
 		  $(addprefix sources/event/, action.c move_player.c move_view.c press_esc.c)\
-		  $(addprefix sources/player/, update.c)\
-		  $(addprefix sources/utils/, utils.c)\
+		  $(addprefix sources/player/, init.c draw.c)\
+		  $(addprefix sources/utils/, utils.c draw_segment.c draw_rectangle.c draw_map.c)\
 		  $(addprefix sources/raycasting/, raycasting.c)
 
 
-HEADERS = $(addprefix includes/, init.h struct.h draw.h event.h image.h player.h utils.h raycasting.h)
+HEADERS = $(addprefix includes/, init.h struct.h event.h image.h player.h utils.h raycasting.h)
 
 OBJS_PATH	= objs/
 OBJS		= $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))

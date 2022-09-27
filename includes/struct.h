@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 08:11:12 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 12:06:18 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:03:38 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_view
 typedef struct s_player
 {
 	t_point	pos;
+	t_point	pos_tmp;
 	t_view	view;
 	double	f_front;
 	double	f_side;

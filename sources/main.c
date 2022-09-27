@@ -6,11 +6,10 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:45:47 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 12:13:02 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:33:02 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "draw.h"
 #include "image.h"
 #include "init.h"
 #include "player.h"
