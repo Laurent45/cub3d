@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 15:00:49 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/27 16:13:50 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 19:55:18 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void draw_intersec(t_player *player, t_img_info *img)
 	int	i;
 	double	curr_angle;
 	double	incr_angle;
-	t_point	vect_fov;
+	/* t_point	vect_fov; */
 
 	curr_angle = player->view.angle - ((FOV / 2) * RAD);
 	curr_angle = set_angle(curr_angle);
@@ -30,13 +30,13 @@ static void draw_intersec(t_player *player, t_img_info *img)
 	i = 0;
 	while (i < WIN_WIDTH)
 	{
-		vect_fov.x = player->pos.x;
-		vect_fov.x += (int) round(FOV_SIZE * cos(curr_angle));
-		vect_fov.y = player->pos.y;
-		vect_fov.y += (int) round(FOV_SIZE * sin(curr_angle));
+		/* vect_fov.x = player->pos.x; */
+		/* vect_fov.x += (int) round(FOV_SIZE * cos(curr_angle)); */
+		/* vect_fov.y = player->pos.y; */
+		/* vect_fov.y += (int) round(FOV_SIZE * sin(curr_angle)); */
 		horizontal_intersec(player, curr_angle, img);
-		//vertical_intersec(player, curr_angle, img);
-		draw_segment(player->pos, vect_fov, 0x000000, img);
+		vertical_intersec(player, curr_angle, img);
+		/* draw_segment(player->pos, vect_fov, 0x000000, img); */
 		curr_angle += (incr_angle * RAD);
 		curr_angle = set_angle(curr_angle);
 		i++;
