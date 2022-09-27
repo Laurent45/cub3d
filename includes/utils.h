@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:09:36 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/27 15:32:06 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:50:24 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,10 @@ void	draw_rect_fill(t_point center, size_t size, int color, t_img_info *img);
  *
  */
 void	draw_map(t_img_info *img);
+
+/**
+ *
+ */
+int		is_wall(t_point a);
 
 #endif
