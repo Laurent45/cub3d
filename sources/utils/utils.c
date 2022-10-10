@@ -6,13 +6,15 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:08:48 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/27 18:07:59 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/06 09:39:24 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "init.h"
 #include "player.h"
+
+#include <math.h>
 
 extern int map[12][12];
 
@@ -44,8 +46,13 @@ int	abs(int x)
 double	set_angle(double angle)
 {
 	if (angle < 0.0)
-		return ((2 * PI) + angle);
-	if (angle >= 2 * PI)
-		return (angle - (2 * PI));
+		return (360 + angle);
+	if (angle >= 360)
+		return (angle - 360);
 	return (angle);
+}
+
+double	get_dist(t_point *a, t_point *b)
+{
+	return (sqrt(pow(a->x - b->x, 2) + pow(a->y - b->y, 2)));
 }

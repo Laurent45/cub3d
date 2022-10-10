@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:09:36 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/27 15:50:24 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/06 09:39:53 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,10 @@ void	draw_map(t_img_info *img);
  *
  */
 int		is_wall(t_point a);
+
+/**
+ *
+ */
+double	get_dist(t_point *a, t_point *b);
 
 #endif

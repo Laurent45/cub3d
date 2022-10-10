@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:10:01 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/22 17:42:40 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:36:57 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 # define KEY_A			97
 # define KEY_S			115
 # define KEY_D			100
+
+/**
+ *
+ */
+void	init_hook(t_core *core);
 
 /**
  *

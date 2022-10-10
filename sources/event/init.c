@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 08:18:33 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/28 16:38:03 by lfrederi         ###   ########.fr       */
+/*   Created: 2022/09/28 15:44:44 by lfrederi          #+#    #+#             */
+/*   Updated: 2022/09/28 15:45:29 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#include "event.h"
+#include "mlx.h"
 
-# include "struct.h"
-
-# define WIN_WIDTH	720.0
-# define WIN_HEIGHT	720.0
-# define WIN_TITLE	"Cub3d"
-
-# define SIZE_CUBE	60.0
-# define EMPTY_CUBE	0xFFFFFF
-# define WALL_CUBE	0x009999
-
-/**
- *
- */
-void	init_mlx(t_core *core);
-
-/**
- *
- */
-void	set_values(t_point *point, int x, int y);
-
-
-void	clear_mlx(t_core *core);
-
-#endif
+void	init_hook(t_core *core)
+{
+	mlx_hook(core->win, 17, 1L << 17, close_red, core);
+	mlx_hook(core->win, 2, 1L << 0, key_press, core);
+}

@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 08:11:12 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/27 15:03:38 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/06 08:49:26 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,20 @@ typedef struct s_view
 typedef struct s_player
 {
 	t_point	pos;
-	t_point	pos_tmp;
+	t_point	map_pos;
+	t_point	tmp_pos;
 	t_view	view;
 	double	f_front;
 	double	f_side;
 }	t_player;
+
+typedef struct s_raycast
+{
+	t_point	*best_point;
+	double	dist;
+	t_point	horizontal;
+	t_point	vertical;
+}	t_raycast;
 
 typedef struct s_img_info
 {
@@ -60,5 +69,6 @@ typedef struct s_core
 	t_img_info	main_img;
 	t_player	player;
 }	t_core;
+
 
 #endif

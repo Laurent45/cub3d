@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:29:23 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/27 15:13:38 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:31:26 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "player.h"
 #include "image.h"
 #include "utils.h"
-
-#include <stdio.h>
 
 void	move_dir_view(t_core *core, int keycode)
 {

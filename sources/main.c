@@ -6,13 +6,14 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:45:47 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/27 15:33:02 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/06 12:46:31 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "image.h"
 #include "init.h"
 #include "player.h"
+#include "event.h"
 #include "mlx.h"
 
 #include <stdlib.h>
@@ -21,7 +22,7 @@ int	map[12][12] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1},
 	{1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
 	{1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
 	{1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
@@ -32,14 +33,6 @@ int	map[12][12] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-void	clear_mlx(t_core *core)
-{
-	mlx_destroy_image(core->mlx, core->main_img.img);
-	mlx_destroy_window(core->mlx, core->win);
-	mlx_destroy_display(core->mlx);
-	free(core->mlx);
-}
-
 int	main()
 {
 	t_core		core;
@@ -48,7 +41,6 @@ int	main()
 	init_player(&core.player);
 	init_hook(&core);
 	main_img(&core);
-	
 	mlx_loop(core.mlx);
 	clear_mlx(&core);
 }

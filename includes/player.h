@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:13:13 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/27 15:28:25 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/09/29 09:21:38 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,25 @@
 
 # include "struct.h"
 
-# define SOUTH			PI / 2.0
-# define NORTH			3.0 * PI / 2.0
-# define EST			0
-# define WEST			PI
+# define SOUTH			90.0
+# define NORTH			270.0
+# define EST			0.0
+# define WEST			180.0
 
-# define PLAYER_X		100
-# define PLAYER_Y		100
+# define PLAYER_X		6	
+# define PLAYER_Y		4
 # define PLAYER_W		10
-# define PLAYER_DIR		SOUTH
+# define PLAYER_DIR		NORTH
 # define PLAYER_SPEED	0.5
 # define PLAYER_COLOR	0x00FF00
 
-# define PI				3.141593
 # define RAD			0.01745329
 # define VIEW_SIZE		30.0
-# define VIEW_INCR		0.1745329
+# define VIEW_INCR		2
 # define VIEW_COLOR		0x000000
 
 
-# define FOV			60.0
+# define FOV			66.0
 # define FOV_SIZE		VIEW_SIZE / 2
 # define FOV_COLOR		0x999900
 # define FOV_COLOR_2	0x66B2FF
