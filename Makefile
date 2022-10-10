@@ -6,7 +6,7 @@
 #    By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 09:06:04 by lfrederi          #+#    #+#              #
-#    Updated: 2022/09/28 16:38:15 by lfrederi         ###   ########.fr        #
+#    Updated: 2022/10/10 16:44:10 by lfrederi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,16 +20,24 @@ _CYAN=	$'\033[36m
 _WHITE=	$'\033[37m
 _END= 	$'\033[37m
 
-SRCS	= $(addprefix sources/, main.c)\
-		  $(addprefix sources/mlx/, init.c)\
-		  $(addprefix sources/image/, create.c put_pixel.c)\
-		  $(addprefix sources/event/, init.c action.c move_player.c move_view.c press_esc.c)\
-		  $(addprefix sources/player/, init.c draw.c)\
-		  $(addprefix sources/utils/, utils.c draw_segment.c draw_rectangle.c draw_map.c)\
-		  $(addprefix sources/raycasting/, raycasting.c)
+SRCS	= 	sources/main.c \
+			sources/Parsing/check_cub.c \
+			sources/Parsing/map.c \
+			sources/Parsing/open_file.c \
+			sources/Parsing/parsing_error.c \
+			sources/Parsing/parsing.c \
+			sources/Parsing/texture_rgb.c \
+			sources/Parsing/utils.c \
+			sources/Parsing/valid_map.c \
+			sources/Parsing/valid_walls.c \
+			sources/Parsing/missing_info.c \
+			$(addprefix sources/Raycasting/, init.c utils.c \
+			$(addprefix draw/, draw_map.c draw_rectangle.c draw_segment.c draw_player.c))
 
-
-HEADERS = $(addprefix includes/, init.h struct.h event.h image.h player.h utils.h raycasting.h)
+HEADERS = 	includes/Cub3D.h \
+			includes/Key_binding.h \
+			includes/Parsing.h \
+			includes/Raycasting.h
 
 OBJS_PATH	= objs/
 OBJS		= $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
@@ -43,7 +51,7 @@ DIR_LIBMLX 	= minilibx/
 DIR_LIBFT	= libft/
 DIR_LIBEXT 	= /usr/include/../lib/
 
-LIBRARY	= -L ${DIR_LIBMLX} -lmlx -L ${DIR_LIBEXT} -lXext  -L ${DIR_LIBFT} -lft
+LIBRARY	= -L ${DIR_LIBFT} -lft -L ${DIR_LIBMLX} -lmlx -L ${DIR_LIBEXT} -lXext 
 LIBFLAG = -lX11 -lm
 
 NAME	= cub3d
@@ -52,14 +60,14 @@ CC		= cc
 RM		= rm -rf
 CFLAGS	= -Wall -Wextra -Werror -g
 
-${OBJS_PATH}%.o: %.c ${HEADERS}
+$(OBJS_PATH)%.o: %.c ${HEADERS}
 	@mkdir -p $(dir $@)
 	@${CC} ${CFLAGS} ${IFLAGS} -c $< -o $@
 	@printf "%-15s ${_YELLOW}${_BOLD}$<${_END}...\n" "Compiling"	
 
-all: libft_make minilibx_make ${HEADERS} ${NAME}
+all: libft_make minilibx_make ${NAME}
 
-${NAME}: ${OBJS}
+${NAME}: ${OBJS} ${HEADERS}
 	@printf "%-15s ${_YELLOW}${_BOLD}$<${_END}...\n" "Compiling"	
 	@${CC} ${CFLAGS} ${OBJS} ${LIBRARY} ${LIBFLAG} -o ${NAME}
 	@printf "\n${_GREEN}${_BOLD}${NAME} OK${_END}\n"

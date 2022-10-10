@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 15:30:49 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/09/26 13:52:45 by lfrederi         ###   ########.fr       */
+/*   Created: 2022/10/10 13:58:44 by lfrederi          #+#    #+#             */
+/*   Updated: 2022/10/10 14:01:14 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "image.h"
-#include "utils.h"
+#include "Raycasting.h"
 
 static void	init_increment(t_point a, t_point b, int increment[2])
 {

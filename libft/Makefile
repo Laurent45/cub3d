@@ -33,7 +33,7 @@ OBJS = $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
 
 NAME	= libft.a
 
-CC		= gcc
+CC		= cc
 
 RM		= rm -rf
 

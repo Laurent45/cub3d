@@ -5,36 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 12:08:48 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/06 09:39:24 by lfrederi         ###   ########.fr       */
+/*   Created: 2022/10/10 12:58:27 by lfrederi          #+#    #+#             */
+/*   Updated: 2022/10/10 16:28:51 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-#include "init.h"
-#include "player.h"
-
+#include "Raycasting.h"
 #include <math.h>
-
-extern int map[12][12];
-
-int	is_wall(t_point a)
-{
-	int x;
-	int	y;
-
-	x = (int) a.x / SIZE_CUBE;
-	y = (int) a.y / SIZE_CUBE;
-	if (map[y][x])
-		return (1);
-			return (0);
-}
-
-void	set_values(t_point *point, int x, int y)
-{
-	point->x = x;
-	point->y = y;
-}
 
 int	abs(int x)
 {
@@ -46,13 +23,36 @@ int	abs(int x)
 double	set_angle(double angle)
 {
 	if (angle < 0.0)
-		return (360 + angle);
-	if (angle >= 360)
-		return (angle - 360);
+		return (360.0 + angle);
+	if (angle >= 360.0)
+		return (angle - 360.0);
 	return (angle);
 }
 
-double	get_dist(t_point *a, t_point *b)
+double	to_rad(double angle)
 {
-	return (sqrt(pow(a->x - b->x, 2) + pow(a->y - b->y, 2)));
+	return ((angle * M_PI) / 180.0);
+}
+
+int	is_wall(t_map *map, t_pos *a)
+{
+	if (map->map[(int) (a->y)][(int) (a->x)] == 0)
+		return (0);
+	return (1);
+}
+
+void	put_pixel_img(t_img_info *img, int x, int y, int color)
+{
+	char	*dst;
+
+	if ((x < 0 || x >= WIN_WIDTH) || (y < 0 || y >= WIN_HEIGHT))
+		return ;
+	dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	set_position(t_pos *pos, double x, double y)
+{
+	pos->x = x;
+	pos->y = y;
 }
