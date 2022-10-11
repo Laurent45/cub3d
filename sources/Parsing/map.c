@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 11:14:54 by ldubuche          #+#    #+#             */
-/*   Updated: 2022/09/28 15:42:58 by ldubuche         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:37:50 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	*char_to_int(char *li, t_map *map, int i, int y)
 			tab_line[i] = 3;
 		else if (li[i] == '0' || li[i] == '1')
 			tab_line[i] = li[i] - 48;
-		else if (li[i] == 'N' || li[i] == 'E' || li[i] == 'W' || li[i] == 's')
+		else if (li[i] == 'N' || li[i] == 'E' || li[i] == 'W' || li[i] == 'S')
 		{
 			tab_line[i] = 2;
 			if (map->direction != NO_DIRECTION)

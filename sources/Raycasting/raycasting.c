@@ -6,97 +6,72 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:56:23 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/10 16:31:15 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:32:56 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
 #include <math.h>
-/* static void	horizontal_intersec(t_map *map, t_player *player, double ray, t_raycast *raycast) */
-/* { */
-/* 	t_point	a; */
-/* 	t_point	incr; */
-/*  */
-/* 	set_point(&incr, 1, SIZE_CUBE); */
-/* 	if (ray >= WEST) */
-/* 	{ */
-/* 		a.y = ((int) (player->pos.y / SIZE_CUBE)) * SIZE_CUBE - 1; */
-/* 		set_point(&incr, -1, -SIZE_CUBE); */
-/* 	} */
-/* 	else */
-/* 		a.y = ((int) (player->pos.y / SIZE_CUBE)) * SIZE_CUBE + SIZE_CUBE; */
-/* 	a.x = player->pos.x + round((a.y - player->pos.y) / tan(ray * RAD)); */
-/* 	if (a.x < 0 || a.x > WIN_WIDTH) */
-/* 		return set_point(&raycast->horizontal, -1 , -1); */
-/* 	incr.x *= (int) round(SIZE_CUBE / tan(ray * RAD));  */
-/* 	set_point(&raycast->horizontal, a.x, a.y); */
-/* 	while (!is_wall(a)) */
-/* 	{ */
-/* 		set_point(&a, a.x + incr.x, a.y + incr.y); */
-/* 		if (a.x < 0 || a.x > WIN_WIDTH || a.y < 0 || a.y > WIN_HEIGHT) */
-/* 			return set_point(&raycast->horizontal, -1 , -1); */
-/* 		set_point(&raycast->horizontal, a.x, a.y); */
-/* 	} */
-/* } */
 
-static void	horizontal_intersec(t_map *map, t_player *player, double ray, t_raycast *raycast)
+void	horizontal_intersec(t_core *core, double ray, t_raycast *raycast)
 {
 	t_pos	a;
-	double	incr_x;
-	double	incr_y;
+	t_pos	incr;
+	int		dir;
 
-	incr_x = 1;
-	incr_y = 1;
+	set_position(&incr, 1, 1);
+	dir = SOUTH;
 	if (ray >= WEST)
 	{
-		a.y = floor(player->pos_y);
-		incr_x = -1;
-		incr_y = -1;
+		a.y = floor(core->player.pos.y);
+		set_position(&incr, -1, -1);
+		dir = NORTH;
 	}
 	else
-		a.y = round(player->pos_y);
-	a.x = player->pos_x + ((a.y - player->pos_y) / tan(to_rad(ray)));
-	if (a.x < 0.0 || a.x > WIN_WIDTH)
-		return (set_position(&raycast->horizontal, -1 , -1));
-	incr_x *= round(1 / tan(to_rad(ray))); 
-	set_position(&raycast->horizontal, a.x, a.y);
-	while (!is_wall(map, &a))
+		a.y = floor(core->player.pos.y + 1);
+	a.x = core->player.pos.x + ((a.y - core->player.pos.y) / tan(to_rad(ray)));
+	if (a.x < 0 || a.x > core->map->width)
+		return set_position(&raycast->horizontal, 0, 0);
+	incr.x *= (1 / tan(to_rad(ray))); 
+	while (!is_wall(core->map, &a, dir))
 	{
-		set_position(&a, a.x + incr_x, a.y + incr_y);
-		if (a.x < 0.0 || a.x > WIN_WIDTH || a.y < 0.0 || a.y > WIN_HEIGHT)
-			return set_position(&raycast->horizontal, -1 , -1);
-		set_position(&raycast->horizontal, a.x, a.y);
+		set_position(&a, a.x + incr.x, a.y + incr.y);
+		if (a.x < 0 || a.x > core->map->width || a.y < 0 || a.y > core->map->height)
+			return set_position(&raycast->horizontal, 0, 0);
 	}
+	set_position(&raycast->horizontal, a.x, a.y);
 }
 
-/* static void	vertical_intersec(t_map *map, t_player *player, double ray, t_raycast *raycast) */
-/* { */
-/* 	t_point	a; */
-/* 	t_point	incr; */
-/*  */
-/* 	set_point(&incr, SIZE_CUBE, 1); */
-/* 	if (ray >= NORTH || ray <= SOUTH) */
-/* 		a.x = ((int) (player->pos.x / SIZE_CUBE)) * SIZE_CUBE + SIZE_CUBE; */
-/* 	else */
-/* 	{ */
-/* 		a.x = ((int) (player->pos.x / SIZE_CUBE)) * SIZE_CUBE - 1; */
-/* 		set_point(&incr, -SIZE_CUBE, -1); */
-/* 	} */
-/* 	a.y = player->pos.y - round((player->pos.x - a.x) * tan(ray * RAD)); */
-/* 	if (a.y < 0 || a.y > WIN_WIDTH) */
-/* 		return set_point(&raycast->vertical, -1 , -1); */
-/* 	incr.y *= (int) round(tan(ray * RAD) * SIZE_CUBE); */
-/* 	set_point(&raycast->vertical, a.x, a.y); */
-/* 	while (!is_wall(a)) */
-/* 	{ */
-/* 		set_point(&a, a.x + incr.x, a.y + incr.y); */
-/* 		if (a.x < 0 || a.x > WIN_WIDTH || a.y < 0 || a.y > WIN_HEIGHT) */
-/* 			return set_point(&raycast->vertical, -1 , -1); */
-/* 		set_point(&raycast->vertical, a.x, a.y); */
-/* 	} */
-/* } */
+void	vertical_intersec(t_core *core, double ray, t_raycast *raycast)
+{
+	t_pos	a;
+	t_pos	incr;
+	int		dir;
 
-void	raycasting(t_map *map, t_core *core)
+	set_position(&incr, 1, 1);
+	dir = EAST;
+	if (ray >= NORTH || ray <= SOUTH)
+		a.x = floor(core->player.pos.x + 1);
+	else
+	{
+		a.x = floor(core->player.pos.x);
+		set_position(&incr, -1, -1);
+		dir = WEST;
+	}
+	a.y = core->player.pos.y + ((a.x - core->player.pos.x) * tan(to_rad(ray)));
+	if (a.y < 0 || a.y > core->map->height)
+		return set_position(&raycast->vertical, 0, 0);
+	incr.y *= tan(to_rad(ray)); 
+	while (!is_wall(core->map, &a, dir))
+	{
+		set_position(&a, a.x + incr.x, a.y + incr.y);
+		if (a.x < 0 || a.x > core->map->width || a.y < 0 || a.y > core->map->height)
+			return set_position(&raycast->vertical, 0, 0);
+	}
+	set_position(&raycast->vertical, a.x, a.y);
+}
+
+void	raycasting(t_core *core)
 {
 	t_raycast	raycast;
 	double	curr_angle;
@@ -108,7 +83,7 @@ void	raycasting(t_map *map, t_core *core)
 	i = 0;
 	while (i < WIN_WIDTH)
 	{
-		horizontal_intersec(map, core->player, curr_angle, &raycast);
+		horizontal_intersec(core, curr_angle, &raycast);
 		curr_angle = set_angle(curr_angle + incr_angle);
 		i++;
 	}

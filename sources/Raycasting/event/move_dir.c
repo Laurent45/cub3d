@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:29:23 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 07:41:43 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:03:41 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	move_dir(t_core *core, int keycode)
 	/* update_view_vector(player); */
 	init_main_img(core, WIN_WIDTH, WIN_HEIGHT);
 	draw_map(&core->main_img, core->map);
-	draw_player(&core->main_img, &core->player, core->map);
+	draw_player(core);
 	mlx_put_image_to_window(core->mlx, core->win, core->main_img.img, 0, 0);
 }
 

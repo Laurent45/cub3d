@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:45:47 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 07:52:05 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:02:30 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		return (free_map(map, 0), 1);
 	init_hook(&core);
 	draw_map(&core.main_img, map);
-	draw_player(&core.main_img, &core.player, map);
+	draw_player(&core);
 	mlx_put_image_to_window(core.mlx, core.win, core.main_img.img, 0, 0);
 	mlx_loop(core.mlx);
 

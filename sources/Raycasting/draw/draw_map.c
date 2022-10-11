@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:30:04 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/10 16:53:06 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:42:31 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	draw_map(t_img_info *img, t_map *map)
 	double	x_incr;
 	double	y_incr;
 	
-	x_incr = WIN_WIDTH / (map->width);
-	y_incr = WIN_HEIGHT / (map->height);
+	x_incr = (double) img->width / (map->width);
+	y_incr = (double) img->height / (map->height);
 	rect.l_height = y_incr;
 	rect.l_width = x_incr;
 	y = 0;
@@ -41,6 +41,8 @@ void	draw_map(t_img_info *img, t_map *map)
 			else
 				rect.color = 0x003300;
 			draw_rect_fill(&rect, img);
+			rect.color = 0x000000;
+			draw_rect(&rect, img);
 			x++;
 		}
 		y++;

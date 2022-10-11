@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:12:59 by ldubuche          #+#    #+#             */
-/*   Updated: 2022/10/11 07:28:26 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:05:53 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@
 # define KEY_A			97
 # define KEY_S			115
 # define KEY_D			100
-# define DIR_INCR		1.0
+# define DIR_INCR		5.0
+# define FOV			60.0
+# define NORTH			270.0
+# define SOUTH			90.0
+# define EAST			0.0
+# define WEST			180.0
 
 typedef struct s_point
 {
@@ -59,17 +64,16 @@ typedef struct s_rect
 	int		color;
 }	t_rect;
 
-typedef struct s_view
-{
-	double	angle;
-	t_point	v_front;
-	t_point	v_side;
-}	t_view;
+/* typedef struct s_view */
+/* { */
+/* 	double	angle; */
+/* 	t_point	v_front; */
+/* 	t_point	v_side; */
+/* }	t_view; */
 
 typedef struct s_player
 {
-	double	pos_x;
-	double	pos_y;
+	t_pos	pos;
 	double	dir;
 	double	f_front;
 	double	f_side;
@@ -89,7 +93,9 @@ typedef struct s_img_info
 	char	*addr;
 	int		bpp;
 	int		line_length;
-	int		endian;	
+	int		endian;
+	int		width;
+	int		height;
 }	t_img_info;
 
 typedef struct s_core
@@ -111,23 +117,27 @@ void	init_hook(t_core *core);
 // Utils
 double	set_angle(double angle);
 double	to_rad(double angle);
-double	to_rad(double angle);
-int		is_wall(t_map *map, t_pos *a);
+int		is_wall(t_map *map, t_pos *a, int dir);
 int		abs(int x);
 void	put_pixel_img(t_img_info *img, int x, int y, int color);
 void	set_position(t_pos *pos, double x, double y);
+void	pixel_point(t_point *a, t_pos *pos, t_core *core);
 
 // Draw
 void	draw_segment(t_point a, t_point b, int color, t_img_info *img);
 void	draw_rect_fill(t_rect *rect, t_img_info *img);
-void	draw_rect(t_point center, int size, int color, t_img_info *img);
+void	draw_rect(t_rect *rect, t_img_info *img);
 void	draw_map(t_img_info *img, t_map *map);
-void	draw_player(t_img_info *img, t_player *player, t_map *map);
+void	draw_player(t_core *core);
 
 // Event
 int		close_red(void *core);
 int		key_press(int keycode, void *core);
 void	move_dir(t_core *core, int keycode);
 void	press_esc(t_core *core);
+
+// Raycast
+void	horizontal_intersec(t_core *core, double ray, t_raycast *raycast);
+void	vertical_intersec(t_core *core, double ray, t_raycast *raycast);
 
 #endif

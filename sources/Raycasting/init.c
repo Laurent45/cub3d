@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:54:00 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 07:55:32 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:39:51 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 static void	init_player(t_map *map, t_player *player)
 {
-	player->pos_x = map->posX + 0.5;
-	player->pos_y = map->posY + 0.5;
+	player->pos.x = map->posX + 0.5;
+	player->pos.y = map->posY + 0.5;
 	if (map->direction == NORTH)
 		player->dir = 270.0;
 	if (map->direction == SOUTH)
@@ -71,6 +71,8 @@ int	init_main_img(t_core *core, int width, int height)
 		mlx_destroy_image(core->mlx, core->main_img.img);
 		return (FAILED);
 	}
+	core->main_img.width = width;
+	core->main_img.height = height;
 	return (SUCCESS);
 }
 
