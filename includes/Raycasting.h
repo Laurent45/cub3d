@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:12:59 by ldubuche          #+#    #+#             */
-/*   Updated: 2022/10/10 16:42:35 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 07:28:26 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,21 @@
 
 # include "Parsing.h"
 
+# define SUCCESS	0
+# define FAILED		1
 # define WIN_WIDTH	1440.0
 # define WIN_HEIGHT	880.0
 # define WIN_TITLE	"Cub3d"
-# define WALL_SIZE	5
+# define ESC			65307
+# define ARROW_LEFT		65361
+# define ARROW_UP		65362
+# define ARROW_RIGHT	65363
+# define ARROW_DOWN		65364
+# define KEY_W			119
+# define KEY_A			97
+# define KEY_S			115
+# define KEY_D			100
+# define DIR_INCR		1.0
 
 typedef struct s_point
 {
@@ -87,12 +98,15 @@ typedef struct s_core
 	void		*win;
 	t_img_info	main_img;
 	t_player	player;
+	t_map		*map;
 }	t_core;
 
 /**
  *
  */
 int		init(t_map *map, t_core *core);
+int		init_main_img(t_core *core, int width, int height);
+void	init_hook(t_core *core);
 
 // Utils
 double	set_angle(double angle);
@@ -103,10 +117,17 @@ int		abs(int x);
 void	put_pixel_img(t_img_info *img, int x, int y, int color);
 void	set_position(t_pos *pos, double x, double y);
 
+// Draw
 void	draw_segment(t_point a, t_point b, int color, t_img_info *img);
 void	draw_rect_fill(t_rect *rect, t_img_info *img);
 void	draw_rect(t_point center, int size, int color, t_img_info *img);
 void	draw_map(t_img_info *img, t_map *map);
 void	draw_player(t_img_info *img, t_player *player, t_map *map);
+
+// Event
+int		close_red(void *core);
+int		key_press(int keycode, void *core);
+void	move_dir(t_core *core, int keycode);
+void	press_esc(t_core *core);
 
 #endif

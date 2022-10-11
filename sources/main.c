@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:45:47 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/10 16:43:53 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 07:52:05 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 #include "Raycasting.h"
 #include "mlx.h"
-#include "mlx_int.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,12 +23,11 @@ int	main(int argc, char **argv, char **envp)
 	map = parsing(argc, argv, envp);
 	if (!map)
 		return (1);
-	if (init(map, &core) == 0)
+	if (init(map, &core) == FAILED)
 		return (free_map(map, 0), 1);
-
-
-	core.main_img.img = mlx_new_image(core.mlx, WIN_WIDTH, WIN_HEIGHT);
-	core.main_img.addr = mlx_get_data_addr(core.main_img.img, &core.main_img.bpp, &core.main_img.line_length, &core.main_img.endian);
+	if (init_main_img(&core, WIN_WIDTH, WIN_HEIGHT) == FAILED)
+		return (free_map(map, 0), 1);
+	init_hook(&core);
 	draw_map(&core.main_img, map);
 	draw_player(&core.main_img, &core.player, map);
 	mlx_put_image_to_window(core.mlx, core.win, core.main_img.img, 0, 0);

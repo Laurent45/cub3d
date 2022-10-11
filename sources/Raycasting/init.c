@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:54:00 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/10 16:51:31 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 07:55:32 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,44 @@ int	init(t_map *map, t_core *core)
 	if (core->mlx == NULL)
 	{
 		printf("Init mlx failed\n");
-		return (0);
+		return (FAILED);
 	}
 	core->win = mlx_new_window(core->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
 	if (core->win == NULL)
 	{
 		printf("Create window failed\n");
-		return (0);
+		return (FAILED);
 	}
 	core->main_img.img = NULL;
 	init_player(map, &core->player);
-	return (1);
+	core->map = map;
+	return (SUCCESS);
 }
 
+int	init_main_img(t_core *core, int width, int height)
+{
+	if (core->main_img.img)
+	{
+		mlx_destroy_image(core->mlx, core->main_img.img);
+		core->main_img.img = NULL;
+		core->main_img.addr = NULL;
+	}
+	core->main_img.img = mlx_new_image(core->mlx, width, height);
+	if (core->main_img.img == NULL)
+		return (FAILED);
+	core->main_img.addr = mlx_get_data_addr(core->main_img.img,\
+			&core->main_img.bpp, &core->main_img.line_length,\
+			&core->main_img.endian);
+	if (core->main_img.addr == NULL)
+	{
+		mlx_destroy_image(core->mlx, core->main_img.img);
+		return (FAILED);
+	}
+	return (SUCCESS);
+}
+
+void	init_hook(t_core *core)
+{
+	mlx_hook(core->win, 17, 1L << 17, close_red, core);
+	mlx_hook(core->win, 2, 1L << 0, key_press, core);
+}

@@ -6,7 +6,7 @@
 #    By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 09:06:04 by lfrederi          #+#    #+#              #
-#    Updated: 2022/10/10 16:44:10 by lfrederi         ###   ########.fr        #
+#    Updated: 2022/10/11 07:53:21 by lfrederi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRCS	= 	sources/main.c \
 			sources/Parsing/valid_walls.c \
 			sources/Parsing/missing_info.c \
 			$(addprefix sources/Raycasting/, init.c utils.c \
-			$(addprefix draw/, draw_map.c draw_rectangle.c draw_segment.c draw_player.c))
+			$(addprefix draw/, draw_map.c draw_rectangle.c draw_segment.c draw_player.c)\
+			$(addprefix event/, action.c move_dir.c press_esc.c))
 
 HEADERS = 	includes/Cub3D.h \
 			includes/Key_binding.h \
