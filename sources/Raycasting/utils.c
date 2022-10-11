@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:58:27 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 17:03:36 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 20:10:00 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,7 @@ double	to_rad(double angle)
 	return ((angle * M_PI) / 180.0);
 }
 
-int	is_wall(t_map *map, t_pos *a, int dir)
+double	distance(t_pos *a, t_pos *b)
 {
-	int	wall;
-	
-	if (dir == NORTH)
-		wall = map->map[(int) floor(a->y - 1)][(int) floor(a->x)];
-	if (dir == SOUTH)
-		wall = map->map[(int) floor(a->y)][(int) floor(a->x)];
-	if (dir == EAST)
-		wall = map->map[(int) floor(a->y)][(int) floor(a->x)];
-	if (dir == WEST)
-		wall = map->map[(int) floor(a->y)][(int) floor(a->x - 1)];
-	if (wall == 0 || wall == 2)
-		return (0);
-	return (1);
-}
-
-void	put_pixel_img(t_img_info *img, int x, int y, int color)
-{
-	char	*dst;
-
-	if ((x < 0 || x >= WIN_WIDTH) || (y < 0 || y >= WIN_HEIGHT))
-		return ;
-	dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	set_position(t_pos *pos, double x, double y)
-{
-	pos->x = x;
-	pos->y = y;
-}
-
-void	pixel_point(t_point *a, t_pos *pos, t_core *core)
-{
-	a->x = round(pos->x * ((double) core->main_img.width / core->map->width));
-	a->y = round(pos->y * ((double) core->main_img.height / core->map->height));
+	return (sqrt(pow(b->x - a->x, 2) + pow(b->y - a->y, 2)));
 }

@@ -6,14 +6,14 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:56:23 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 17:32:56 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 21:38:28 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
 #include <math.h>
 
-void	horizontal_intersec(t_core *core, double ray, t_raycast *raycast)
+static void	horizontal_intersec(t_core *core, double ray, t_raycast *raycast)
 {
 	t_pos	a;
 	t_pos	incr;
@@ -30,7 +30,7 @@ void	horizontal_intersec(t_core *core, double ray, t_raycast *raycast)
 	else
 		a.y = floor(core->player.pos.y + 1);
 	a.x = core->player.pos.x + ((a.y - core->player.pos.y) / tan(to_rad(ray)));
-	if (a.x < 0 || a.x > core->map->width)
+	if (a.x < 0.0 || a.x > core->map->width)
 		return set_position(&raycast->horizontal, 0, 0);
 	incr.x *= (1 / tan(to_rad(ray))); 
 	while (!is_wall(core->map, &a, dir))
@@ -42,7 +42,7 @@ void	horizontal_intersec(t_core *core, double ray, t_raycast *raycast)
 	set_position(&raycast->horizontal, a.x, a.y);
 }
 
-void	vertical_intersec(t_core *core, double ray, t_raycast *raycast)
+static void	vertical_intersec(t_core *core, double ray, t_raycast *raycast)
 {
 	t_pos	a;
 	t_pos	incr;
@@ -59,7 +59,7 @@ void	vertical_intersec(t_core *core, double ray, t_raycast *raycast)
 		dir = WEST;
 	}
 	a.y = core->player.pos.y + ((a.x - core->player.pos.x) * tan(to_rad(ray)));
-	if (a.y < 0 || a.y > core->map->height)
+	if (a.y < 0.0 || a.y > core->map->height)
 		return set_position(&raycast->vertical, 0, 0);
 	incr.y *= tan(to_rad(ray)); 
 	while (!is_wall(core->map, &a, dir))
@@ -71,12 +71,39 @@ void	vertical_intersec(t_core *core, double ray, t_raycast *raycast)
 	set_position(&raycast->vertical, a.x, a.y);
 }
 
-void	raycasting(t_core *core)
+static void	best_intersec(t_raycast *raycast, t_player *player)
+{
+	double	dist_h;
+	double	dist_v;
+
+	if (raycast->horizontal.x == 0.0 || raycast->vertical.x == 0.0)
+	{
+		if (raycast->horizontal.x == 0.0)
+			raycast->best_point = &raycast->vertical;
+		else
+			raycast->best_point = &raycast->horizontal;
+		raycast->dist = distance(&player->pos, raycast->best_point);
+	}
+	else
+	{
+		dist_h = distance(&player->pos, &raycast->horizontal);
+		dist_v = distance(&player->pos, &raycast->vertical);
+		raycast->best_point = &raycast->horizontal;
+		raycast->dist = dist_h;
+		if (dist_h >= dist_v)
+		{
+			raycast->best_point = &raycast->vertical;
+			raycast->dist = dist_v;
+		}
+	}
+}
+
+void	raycasting(t_core *core, t_rect *rect)
 {
 	t_raycast	raycast;
-	double	curr_angle;
-	double	incr_angle;
-	int		i;
+	double		curr_angle;
+	double		incr_angle;
+	int			i;
 
 	curr_angle = set_angle(core->player.dir - (FOV / 2));
 	incr_angle = FOV / WIN_WIDTH;
@@ -84,6 +111,11 @@ void	raycasting(t_core *core)
 	while (i < WIN_WIDTH)
 	{
 		horizontal_intersec(core, curr_angle, &raycast);
+		vertical_intersec(core, curr_angle, &raycast);
+		best_intersec(&raycast, &core->player);
+		t_point b;
+		pixel_point(&b, raycast.best_point, core);
+		draw_segment(rect->center, b, 0x34B2A8, &core->main_img);
 		curr_angle = set_angle(curr_angle + incr_angle);
 		i++;
 	}
@@ -91,35 +123,6 @@ void	raycasting(t_core *core)
 }
 
 
-/* void	best_intersec(t_raycast *raycast, t_player *player) */
-/* { */
-/* 	double	dist_h; */
-/* 	double	dist_v; */
-/*  */
-/* 	if (raycast->vertical.x == -1) */
-/* 	{ */
-/* 		raycast->best_point = &raycast->horizontal; */
-/* 		raycast->dist = get_dist(&player->pos, &raycast->horizontal); */
-/* 	} */
-/* 	else if (raycast->horizontal.x == -1) */
-/* 	{ */
-/* 		raycast->best_point = &raycast->vertical; */
-/* 		raycast->dist = get_dist(&player->pos, &raycast->vertical); */
-/* 	} */
-/* 	else */
-/* 	{ */
-/* 		dist_h = get_dist(&player->pos, &raycast->horizontal); */
-/* 		dist_v = get_dist(&player->pos, &raycast->vertical); */
-/* 		raycast->best_point = &raycast->horizontal; */
-/* 		raycast->dist = dist_h; */
-/* 		if (dist_h >= dist_v) */
-/* 		{ */
-/* 			raycast->best_point = &raycast->vertical; */
-/* 			raycast->dist = dist_v; */
-/* 		} */
-/* 	} */
-/* } */
-/*  */
 /* void	wall_slice(int x, t_raycast *raycast, t_img_info *img) */
 /* { */
 /* 	t_point	a; */

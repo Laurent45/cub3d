@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:12:59 by ldubuche          #+#    #+#             */
-/*   Updated: 2022/10/11 17:05:53 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/11 20:54:13 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define SOUTH			90.0
 # define EAST			0.0
 # define WEST			180.0
+# define VELOCITY		5
 
 typedef struct s_point
 {
@@ -74,6 +75,7 @@ typedef struct s_rect
 typedef struct s_player
 {
 	t_pos	pos;
+	t_pos	pos_tmp;
 	double	dir;
 	double	f_front;
 	double	f_side;
@@ -122,6 +124,7 @@ int		abs(int x);
 void	put_pixel_img(t_img_info *img, int x, int y, int color);
 void	set_position(t_pos *pos, double x, double y);
 void	pixel_point(t_point *a, t_pos *pos, t_core *core);
+double	distance(t_pos *a, t_pos *b);
 
 // Draw
 void	draw_segment(t_point a, t_point b, int color, t_img_info *img);
@@ -134,10 +137,10 @@ void	draw_player(t_core *core);
 int		close_red(void *core);
 int		key_press(int keycode, void *core);
 void	move_dir(t_core *core, int keycode);
+void	move_player(t_core *core, int keycode);
 void	press_esc(t_core *core);
 
 // Raycast
-void	horizontal_intersec(t_core *core, double ray, t_raycast *raycast);
-void	vertical_intersec(t_core *core, double ray, t_raycast *raycast);
+void	raycasting(t_core *core, t_rect *rect);
 
 #endif
