@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:12:59 by ldubuche          #+#    #+#             */
-/*   Updated: 2022/10/11 20:54:13 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:15:35 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ typedef struct s_player
 
 typedef struct s_raycast
 {
+	int		id;
 	t_pos	*best_point;
 	double	dist;
+	double	ray;
 	t_pos	horizontal;
 	t_pos	vertical;
 }	t_raycast;
@@ -113,8 +115,6 @@ typedef struct s_core
  *
  */
 int		init(t_map *map, t_core *core);
-int		init_main_img(t_core *core, int width, int height);
-void	init_hook(t_core *core);
 
 // Utils
 double	set_angle(double angle);
@@ -134,6 +134,7 @@ void	draw_map(t_img_info *img, t_map *map);
 void	draw_player(t_core *core);
 
 // Event
+void	init_hook(t_core *core);
 int		close_red(void *core);
 int		key_press(int keycode, void *core);
 void	move_dir(t_core *core, int keycode);
@@ -143,4 +144,5 @@ void	press_esc(t_core *core);
 // Raycast
 void	raycasting(t_core *core, t_rect *rect);
 
+int		create_img(t_core *core, t_img_info *img, int width, int height);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:04:20 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 20:58:12 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/12 13:57:58 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	move_player(t_core *core, int keycode)
 	player->pos.y = player->pos_tmp.y;
 	player->pos.y += 0.1 * sin(to_rad(player->dir)) * player->f_front; 
 	player->pos.y += 0.1 * sin(to_rad(set_angle(player->dir + 90.0))) * player->f_side;
-	init_main_img(core, WIN_WIDTH, WIN_HEIGHT);
-	draw_map(&core->main_img, core->map);
+	create_img(core, &core->main_img, WIN_WIDTH, WIN_HEIGHT);
+	/* draw_map(&core->main_img, core->map); */
 	draw_player(core);
 	mlx_put_image_to_window(core->mlx, core->win, core->main_img.img, 0, 0);
 }

@@ -6,14 +6,15 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:56:23 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 21:38:28 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:38:26 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
+#include "mlx.h"
 #include <math.h>
 
-static void	horizontal_intersec(t_core *core, double ray, t_raycast *raycast)
+/*static void	horizontal_intersec(t_core *core, double ray, t_raycast *raycast)
 {
 	t_pos	a;
 	t_pos	incr;
@@ -98,52 +99,55 @@ static void	best_intersec(t_raycast *raycast, t_player *player)
 	}
 }
 
+static void	wall_slice(int x, t_raycast *raycast, t_img_info *img)
+{
+	t_point	a;
+	t_point	b;
+	int	height_slice = round((1 / raycast->dist) * WIN_HEIGHT);
+
+	a.x = x;
+	b.x = x;
+	a.y = round((WIN_HEIGHT / 2.0) - (height_slice / 2.0));
+	b.y = round((WIN_HEIGHT / 2.0) + (height_slice / 2.0));
+	draw_segment(a, b, 0x32AA02, img);
+	int tmp = b.y;
+	b.y = a.y; 
+	a.y = 0;
+	draw_segment(a, b, 0x000000, img);
+	a.y = tmp;
+	b.y = WIN_HEIGHT;
+	draw_segment(a, b, 0x1299FF, img);
+}*/
+
 void	raycasting(t_core *core, t_rect *rect)
 {
-	t_raycast	raycast;
-	double		curr_angle;
-	double		incr_angle;
-	int			i;
+	(void) rect;
+	/* t_raycast	raycast; */
+	/* double		curr_angle; */
+	/* double		incr_angle; */
+	/* int			i; */
 
-	curr_angle = set_angle(core->player.dir - (FOV / 2));
-	incr_angle = FOV / WIN_WIDTH;
-	i = 0;
-	while (i < WIN_WIDTH)
-	{
-		horizontal_intersec(core, curr_angle, &raycast);
-		vertical_intersec(core, curr_angle, &raycast);
-		best_intersec(&raycast, &core->player);
-		t_point b;
-		pixel_point(&b, raycast.best_point, core);
-		draw_segment(rect->center, b, 0x34B2A8, &core->main_img);
-		curr_angle = set_angle(curr_angle + incr_angle);
-		i++;
-	}
-
+	t_img_info t;
+	t.img = mlx_xpm_file_to_image(core->mlx, "./wall_WE.xpm", &t.width, &t.height);
+	/* curr_angle = set_angle(core->player.dir - (FOV / 2)); */
+	/* incr_angle = FOV / WIN_WIDTH; */
+	/* i = 0; */
+	/* while (i < WIN_WIDTH) */
+	/* { */
+	/* 	raycast.ray = curr_angle; */
+	/* 	raycast.id = 0; */
+	/* 	horizontal_intersec(core, curr_angle, &raycast); */
+	/* 	vertical_intersec(core, curr_angle, &raycast); */
+	/* 	best_intersec(&raycast, &core->player); */
+	/* 	if (raycast.best_point == &raycast.horizontal) */
+	/* 		raycast.id = 1; */
+	/* 	raycast.dist = raycast.dist * cos(to_rad(core->player.dir - curr_angle)); */
+	/* 	t_point b; */
+	/* 	pixel_point(&b, raycast.best_point, core); */
+	/* 	draw_segment(rect->center, b, 0x34B2A8, &core->main_img); */
+	/* 	wall_slice(i, &raycast, &core->main_img); */
+	/* 	curr_angle = set_angle(curr_angle + incr_angle); */
+	/* 	i++; */
+	/* } */
+	mlx_put_image_to_window(core->mlx, core->win, t.img, 0, 0);
 }
-
-
-/* void	wall_slice(int x, t_raycast *raycast, t_img_info *img) */
-/* { */
-/* 	t_point	a; */
-/* 	t_point	b; */
-/* 	const int dist_project_plane = 500; */
-/* 	int	height_slice = round(SIZE_CUBE / raycast->dist * dist_project_plane); */
-/*  */
-/* 	a.x = x; */
-/* 	b.x = x; */
-/* 	a.y = round((WIN_HEIGHT / 2.0) - (height_slice / 2.0)); */
-/* 	b.y = round((WIN_HEIGHT / 2.0) + (height_slice / 2.0)); */
-/* 	draw_segment(a, b, WALL_CUBE, img); */
-/*  */
-/*  */
-/*  */
-/*  */
-/* 	int tmp = b.y; */
-/* 	b.y = a.y;  */
-/* 	a.y = 0; */
-/* 	draw_segment(a, b, 0x000000, img); */
-/* 	a.y = tmp; */
-/* 	b.y = WIN_HEIGHT; */
-/* 	draw_segment(a, b, 0x1299FF, img); */
-/* } */
