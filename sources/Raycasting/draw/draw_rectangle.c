@@ -6,19 +6,18 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:04:16 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 13:42:24 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:34:41 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
-
 #include <math.h>
 
 void	draw_rect_fill(t_rect *rect, t_img_info *img)
 {
 	t_point	a;
 	t_point	b;
-	int	y_end;
+	int		y_end;
 
 	a.x = round(rect->center.x - rect->l_width / 2.0);
 	a.y = round(rect->center.y - rect->l_height / 2.0);

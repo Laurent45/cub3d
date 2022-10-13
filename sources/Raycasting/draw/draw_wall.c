@@ -6,13 +6,12 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 08:05:12 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/13 13:54:42 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:23:21 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
 #include <math.h>
-
 
 static void	init_wall(t_wall *wall, t_core *core, t_raycast *raycast, int h)
 {
@@ -22,22 +21,22 @@ static void	init_wall(t_wall *wall, t_core *core, t_raycast *raycast, int h)
 	if (raycast->id == 0)
 	{
 		if (raycast->ray >= SOUTH && raycast->ray <= NORTH)
-			wall->texture = &core->EA;
+			wall->texture = &core->img_ea;
 		else
-			wall->texture = &core->WE;
+			wall->texture = &core->img_we;
 		fact = raycast->best_point->y - floor(raycast->best_point->y);
 		wall->start_x = (int) round(fact * wall->texture->width);
-		wall->y_incr = (double) wall->texture->height / h; 
+		wall->y_incr = (double) wall->texture->height / h;
 	}
 	else
 	{
 		if (raycast->ray >= WEST)
-			wall->texture = &core->SO;
+			wall->texture = &core->img_so;
 		else
-			wall->texture = &core->NO;
+			wall->texture = &core->img_no;
 		fact = raycast->best_point->x - floor(raycast->best_point->x);
 		wall->start_x = (int) round(fact * wall->texture->width);
-		wall->y_incr = (double) wall->texture->height / h; 
+		wall->y_incr = (double) wall->texture->height / h;
 	}
 }
 
@@ -46,7 +45,7 @@ static void	set_pixel_wall(t_wall *wall, t_core *core, t_point *a, t_point *b)
 	char		*dst;
 	char		*src;
 	t_img_info	*img;
-	
+
 	img = &core->main_img;
 	while (a->y != b->y)
 	{
@@ -71,9 +70,10 @@ void	draw_wall(t_core *core, int x, t_raycast *raycast)
 	t_point	b;
 	int		wall_height;
 
-	wall_height = round((1 / raycast->dist) * WIN_HEIGHT);
-	if (wall_height > WIN_HEIGHT * 4)
-		wall_height = WIN_HEIGHT * 4;
+	if (raycast->dist == 0)
+		wall_height = WIN_HEIGHT;
+	else
+		wall_height = round((1 / raycast->dist) * WIN_HEIGHT);
 	init_wall(&wall, core, raycast, wall_height);
 	set_point(&a, x, 0);
 	set_point(&b, x, round((WIN_HEIGHT / 2.0) - (wall_height / 2.0)));

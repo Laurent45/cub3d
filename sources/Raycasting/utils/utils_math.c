@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:58:27 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 20:10:00 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:19:03 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,10 @@ double	to_rad(double angle)
 double	distance(t_pos *a, t_pos *b)
 {
 	return (sqrt(pow(b->x - a->x, 2) + pow(b->y - a->y, 2)));
+}
+
+void	pixel_point(t_point *a, t_pos *pos, t_core *core, t_img_info *img)
+{
+	a->x = round(pos->x * ((double) img->width / core->map->width));
+	a->y = round(pos->y * ((double) img->height / core->map->height));
 }

@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:58:44 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/10 14:01:14 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:35:23 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	draw_dy(t_seg seg, int color, t_img_info *img, int incr[2])
 	y_curr = seg.a.y;
 	while (y_curr != seg.b.y)
 	{
-		put_pixel_img(img, x_curr, y_curr, color); 
+		put_pixel_img(img, x_curr, y_curr, color);
 		y_curr += incr[1];
 		e -= dx;
 		if (e < 0)
@@ -77,7 +77,7 @@ static void	draw_dy(t_seg seg, int color, t_img_info *img, int incr[2])
 			e += dy;
 		}
 	}
-	put_pixel_img(img, seg.b.x, seg.b.y, color) ;
+	put_pixel_img(img, seg.b.x, seg.b.y, color);
 }
 
 void	draw_segment(t_point a, t_point b, int color, t_img_info *img)

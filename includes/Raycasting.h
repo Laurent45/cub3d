@@ -6,14 +6,12 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:12:59 by ldubuche          #+#    #+#             */
-/*   Updated: 2022/10/13 15:16:14 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:48:34 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
-
-/*Je te laisse mettre tes structures ici ;p*/
 
 # include "Parsing.h"
 
@@ -50,7 +48,7 @@ typedef struct s_point
 
 typedef struct s_seg
 {
-	t_point a;
+	t_point	a;
 	t_point	b;
 }	t_seg;
 
@@ -62,7 +60,7 @@ typedef struct s_pos
 
 typedef struct s_rect
 {
-	t_point center;
+	t_point	center;
 	double	l_width;
 	double	l_height;
 	int		color;
@@ -112,18 +110,19 @@ typedef struct s_core
 	void		*win;
 	t_img_info	main_img;
 	t_img_info	mini_map;
-	t_img_info	NO;
-	t_img_info	SO;
-	t_img_info	EA;
-	t_img_info	WE;
+	t_img_info	img_no;
+	t_img_info	img_so;
+	t_img_info	img_ea;
+	t_img_info	img_we;
 	t_player	player;
 	t_map		*map;
 }	t_core;
 
-/**
- *
- */
+// Init
 int		init(t_map *map, t_core *core);
+
+// Raycasting
+void	raycasting(t_core *core);
 
 // Utils
 double	set_angle(double angle);
@@ -138,6 +137,7 @@ void	pixel_point(t_point *a, t_pos *pos, t_core *core, t_img_info *img);
 double	distance(t_pos *a, t_pos *b);
 int		put_error(char *message, int ret);
 void	clear(t_core *core);
+int		create_img(t_core *core, t_img_info *img, int width, int height);
 
 // Draw
 void	draw_segment(t_point a, t_point b, int color, t_img_info *img);
@@ -155,8 +155,4 @@ int		move_player(t_core *core, int keycode);
 void	press_esc(t_core *core);
 int		display_minimap(t_core *core);
 
-// Raycast
-void	raycasting(t_core *core);
-
-int		create_img(t_core *core, t_img_info *img, int width, int height);
 #endif

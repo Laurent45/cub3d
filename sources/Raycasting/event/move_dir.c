@@ -6,31 +6,27 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:29:23 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/13 15:08:39 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:38:52 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
 #include "mlx.h"
-
 #include <math.h>
 
 int	move_dir(t_core *core, int keycode)
 {
-	t_player	*player;
-
-	player = &core->player;
-	if (player->f_front != 0.0 || player->f_side != 0.0)
+	if (core->player.f_front != 0.0 || core->player.f_side != 0.0)
 	{
-		player->pos_tmp.x = player->pos.x;
-		player->pos_tmp.y = player->pos.y;
-		player->f_side = 0.0;
-		player->f_front = 0.0;
+		core->player.pos_tmp.x = core->player.pos.x;
+		core->player.pos_tmp.y = core->player.pos.y;
+		core->player.f_side = 0.0;
+		core->player.f_front = 0.0;
 	}
 	if (keycode == ARROW_LEFT)
-		player->dir = set_angle(player->dir - DIR_INCR);
+		core->player.dir = set_angle(core->player.dir - DIR_INCR);
 	if (keycode == ARROW_RIGHT)
-		player->dir = set_angle(player->dir + DIR_INCR);
+		core->player.dir = set_angle(core->player.dir + DIR_INCR);
 	if (create_img(core, &core->main_img, WIN_WIDTH, WIN_HEIGHT) == FAILED)
 		return (FAILED);
 	raycasting(core);
@@ -44,4 +40,3 @@ int	move_dir(t_core *core, int keycode)
 	}
 	return (SUCCESS);
 }
-

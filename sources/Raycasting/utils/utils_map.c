@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   utils_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 20:00:28 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/13 14:51:15 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:20:56 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,4 @@ void	set_point(t_point *point, int x, int y)
 {
 	point->x = x;
 	point->y = y;
-}
-
-void	pixel_point(t_point *a, t_pos *pos, t_core *core, t_img_info *img)
-{
-	a->x = round(pos->x * ((double) img->width / core->map->width));
-	a->y = round(pos->y * ((double) img->height / core->map->height));
 }
