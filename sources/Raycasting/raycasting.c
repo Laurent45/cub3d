@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:56:23 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/13 09:22:44 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 12:40:38 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,39 +98,6 @@ static void	best_intersec(t_raycast *raycast, t_player *player)
 		}
 	}
 }
-
-/* static void	wall_slice(int x, t_raycast *raycast, t_img_info *img, t_core *core) */
-/* { */
-/* 	t_point	a; */
-/* 	t_point	b; */
-/* 	int		height_slice; */
-/*  */
-/* 	height_slice = round((1 / raycast->dist) * WIN_HEIGHT / 2); */
-/* 	a.x = x; */
-/* 	b.x = x; */
-/* 	a.y = round((WIN_HEIGHT / 2.0) - (height_slice / 2.0)); */
-/* 	b.y = round((WIN_HEIGHT / 2.0) + (height_slice / 2.0)); */
-/* 	while (a.y <= b.y) */
-/* 	{ */
-/* 		char	*dst; */
-/* 		char	*src; */
-/* 	 */
-/* 		dst = img->addr + (a.y * img->line_length + a.x * (img->bpp / 8)); */
-/* 		src = core->NO.addr + (0 * core->NO.line_length + 5 * (core->NO.bpp / 8)); */
-/* 		*(unsigned int *) dst = *(unsigned int *) src; */
-/* 	 */
-/* 		a.y++; */
-/* 	} */
-/* 	(void) core; */
-/* 	draw_segment(a, b, 0x32AA02, img); */
-/* 	int tmp = b.y; */
-/* 	b.y = a.y;  */
-/* 	a.y = 0; */
-/* 	draw_segment(a, b, 0x000000, img); */
-/* 	a.y = tmp; */
-/* 	b.y = WIN_HEIGHT; */
-/* 	draw_segment(a, b, 0x1299FF, img); */
-/* } */
 
 void	raycasting(t_core *core)
 {

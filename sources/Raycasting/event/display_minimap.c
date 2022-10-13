@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_dir.c                                         :+:      :+:    :+:   */
+/*   display_minimap.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 17:29:23 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/13 15:08:39 by lfrederi         ###   ########.fr       */
+/*   Created: 2022/10/13 14:20:50 by lfrederi          #+#    #+#             */
+/*   Updated: 2022/10/13 15:17:33 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
 #include "mlx.h"
 
-#include <math.h>
+#include <stddef.h>
 
-int	move_dir(t_core *core, int keycode)
+int	display_minimap(t_core *core)
 {
-	t_player	*player;
-
-	player = &core->player;
-	if (player->f_front != 0.0 || player->f_side != 0.0)
-	{
-		player->pos_tmp.x = player->pos.x;
-		player->pos_tmp.y = player->pos.y;
-		player->f_side = 0.0;
-		player->f_front = 0.0;
-	}
-	if (keycode == ARROW_LEFT)
-		player->dir = set_angle(player->dir - DIR_INCR);
-	if (keycode == ARROW_RIGHT)
-		player->dir = set_angle(player->dir + DIR_INCR);
-	if (create_img(core, &core->main_img, WIN_WIDTH, WIN_HEIGHT) == FAILED)
-		return (FAILED);
-	raycasting(core);
-	mlx_put_image_to_window(core->mlx, core->win, core->main_img.img, 0, 0);
 	if (core->mini_map.img)
+	{
+		mlx_destroy_image(core->mlx, core->mini_map.img);
+		core->mini_map.img = NULL;
+		core->mini_map.addr = NULL;
+		if (create_img(core, &core->main_img, WIN_WIDTH, WIN_HEIGHT) == FAILED)
+			return (FAILED);
+		raycasting(core);
+		mlx_put_image_to_window(core->mlx, core->win, core->main_img.img, 0, 0);
+	}
+	else
 	{
 		if (create_img(core, &core->mini_map, W_MINIMAP, H_MINIMAP) == FAILED)
 			return (FAILED);
@@ -44,4 +36,3 @@ int	move_dir(t_core *core, int keycode)
 	}
 	return (SUCCESS);
 }
-

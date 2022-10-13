@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:12:59 by ldubuche          #+#    #+#             */
-/*   Updated: 2022/10/13 09:22:20 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:16:14 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define FAILED			1
 # define WIN_WIDTH		1440.0
 # define WIN_HEIGHT		880.0
+# define W_MINIMAP		200.0
+# define H_MINIMAP		200.0
 # define WIN_TITLE		"Cub3d"
 # define ESC			65307
 # define ARROW_LEFT		65361
@@ -31,6 +33,7 @@
 # define KEY_A			97
 # define KEY_S			115
 # define KEY_D			100
+# define KEY_M			109
 # define DIR_INCR		5.0
 # define FOV			60.0
 # define NORTH			270.0
@@ -65,13 +68,6 @@ typedef struct s_rect
 	int		color;
 }	t_rect;
 
-/* typedef struct s_view */
-/* { */
-/* 	double	angle; */
-/* 	t_point	v_front; */
-/* 	t_point	v_side; */
-/* }	t_view; */
-
 typedef struct s_player
 {
 	t_pos	pos;
@@ -102,16 +98,25 @@ typedef struct s_img_info
 	int		height;
 }	t_img_info;
 
+typedef struct s_wall
+{
+	int			start_x;
+	double		y;
+	double		y_incr;
+	t_img_info	*texture;
+}	t_wall;
+
 typedef struct s_core
 {
 	void		*mlx;
 	void		*win;
 	t_img_info	main_img;
-	t_player	player;
+	t_img_info	mini_map;
 	t_img_info	NO;
 	t_img_info	SO;
 	t_img_info	EA;
 	t_img_info	WE;
+	t_player	player;
 	t_map		*map;
 }	t_core;
 
@@ -124,28 +129,31 @@ int		init(t_map *map, t_core *core);
 double	set_angle(double angle);
 double	to_rad(double angle);
 int		is_wall(t_map *map, t_pos *a, int dir);
+int		in_wall(t_map *map, t_pos *pos);
 int		abs(int x);
 void	put_pixel_img(t_img_info *img, int x, int y, int color);
 void	set_position(t_pos *pos, double x, double y);
-void	pixel_point(t_point *a, t_pos *pos, t_core *core);
+void	set_point(t_point *point, int x, int y);
+void	pixel_point(t_point *a, t_pos *pos, t_core *core, t_img_info *img);
 double	distance(t_pos *a, t_pos *b);
 int		put_error(char *message, int ret);
+void	clear(t_core *core);
 
 // Draw
 void	draw_segment(t_point a, t_point b, int color, t_img_info *img);
 void	draw_rect_fill(t_rect *rect, t_img_info *img);
 void	draw_rect(t_rect *rect, t_img_info *img);
-void	draw_map(t_img_info *img, t_map *map);
-void	draw_player(t_core *core);
+void	draw_minimap(t_core *core);
 void	draw_wall(t_core *core, int x, t_raycast *raycast);
 
 // Event
 void	init_hook(t_core *core);
 int		close_red(void *core);
 int		key_press(int keycode, void *core);
-void	move_dir(t_core *core, int keycode);
-void	move_player(t_core *core, int keycode);
+int		move_dir(t_core *core, int keycode);
+int		move_player(t_core *core, int keycode);
 void	press_esc(t_core *core);
+int		display_minimap(t_core *core);
 
 // Raycast
 void	raycasting(t_core *core);

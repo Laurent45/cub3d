@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 20:00:28 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/11 21:42:37 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:51:15 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	put_pixel_img(t_img_info *img, int x, int y, int color)
 int	is_wall(t_map *map, t_pos *a, int dir)
 {
 	int	wall;
+
 	if (floor(a->x) <= 0.0 || floor(a->y) <= 0.0)
 		return (1);
 	if (dir == NORTH)
@@ -41,14 +42,30 @@ int	is_wall(t_map *map, t_pos *a, int dir)
 	return (1);
 }
 
+int	in_wall(t_map *map, t_pos *pos)
+{
+	if (floor(pos->x) <= 0.0 || floor(pos->y) <= 0.0)
+		return (1);
+	if ((map->map[(int) pos->y][(int) pos->x] == 0) \
+		|| (map->map[(int) pos->y][(int) pos->x] == 2))
+		return (0);
+	return (1);
+}
+
 void	set_position(t_pos *pos, double x, double y)
 {
 	pos->x = x;
 	pos->y = y;
 }
 
-void	pixel_point(t_point *a, t_pos *pos, t_core *core)
+void	set_point(t_point *point, int x, int y)
 {
-	a->x = round(pos->x * ((double) core->main_img.width / core->map->width));
-	a->y = round(pos->y * ((double) core->main_img.height / core->map->height));
+	point->x = x;
+	point->y = y;
+}
+
+void	pixel_point(t_point *a, t_pos *pos, t_core *core, t_img_info *img)
+{
+	a->x = round(pos->x * ((double) img->width / core->map->width));
+	a->y = round(pos->y * ((double) img->height / core->map->height));
 }

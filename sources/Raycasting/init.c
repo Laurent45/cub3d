@@ -6,14 +6,13 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:54:00 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/13 07:47:15 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:14:19 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "Raycasting.h"
 
-#include <stdio.h>
 #include <stddef.h>
 
 static void	init_player(t_map *map, t_player *player)
@@ -39,22 +38,44 @@ static int	init_texture(t_core *core, t_img_info *texture, char *filename)
 	void		*mlx;
 
 	mlx = core->mlx;
-	texture->img = mlx_xpm_file_to_image(mlx, filename, &texture->width, &texture->height);
+	texture->img = mlx_xpm_file_to_image(mlx, filename, &texture->width, \
+			&texture->height);
 	if (!texture->img)
 		return (FAILED);
-	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp, &texture->line_length,\
-			&texture->endian);
+	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp, \
+			&texture->line_length, &texture->endian);
+	if (!texture->addr)
+		return (FAILED);
 	return (SUCCESS);
+}
+
+static void	set_null(t_core *core)
+{
+	core->mlx = NULL;
+	core->win = NULL;
+	core->NO.img = NULL;
+	core->NO.addr = NULL;
+	core->SO.img = NULL;
+	core->SO.addr = NULL;
+	core->EA.img = NULL;
+	core->EA.addr = NULL;
+	core->WE.img = NULL;
+	core->WE.addr = NULL;
+	core->main_img.img = NULL;
+	core->main_img.addr = NULL;
+	core->mini_map.img = NULL;
+	core->mini_map.addr = NULL;
 }
 
 int	init(t_map *map, t_core *core)
 {
+	set_null(core);
 	core->mlx = mlx_init();
 	if (!core->mlx)
 		return (put_error("Init mlx failed", FAILED));
 	core->win = mlx_new_window(core->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
 	if (core->win == NULL)
-		return (put_error("Create window failed\n", FAILED));
+		return (put_error("Create window failed", FAILED));
 	if (init_texture(core, &core->NO, map->texture->no_texture) == FAILED)
 		return (put_error("Texture NO failed", FAILED));
 	if (init_texture(core, &core->SO, map->texture->so_texture) == FAILED)
@@ -64,7 +85,6 @@ int	init(t_map *map, t_core *core)
 	if (init_texture(core, &core->WE, map->texture->we_texture) == FAILED)
 		return (put_error("Texture WE failed", FAILED));
 	init_player(map, &core->player);
-	core->main_img.img = NULL;
 	core->map = map;
 	return (SUCCESS);
 }
