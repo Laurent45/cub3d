@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:54:00 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/12 13:54:12 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 07:47:15 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,37 @@ static void	init_player(t_map *map, t_player *player)
 	player->f_side = 0.0;
 }
 
+static int	init_texture(t_core *core, t_img_info *texture, char *filename)
+{
+	void		*mlx;
+
+	mlx = core->mlx;
+	texture->img = mlx_xpm_file_to_image(mlx, filename, &texture->width, &texture->height);
+	if (!texture->img)
+		return (FAILED);
+	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp, &texture->line_length,\
+			&texture->endian);
+	return (SUCCESS);
+}
+
 int	init(t_map *map, t_core *core)
 {
 	core->mlx = mlx_init();
-	if (core->mlx == NULL)
-	{
-		printf("Init mlx failed\n");
-		return (FAILED);
-	}
+	if (!core->mlx)
+		return (put_error("Init mlx failed", FAILED));
 	core->win = mlx_new_window(core->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
 	if (core->win == NULL)
-	{
-		printf("Create window failed\n");
-		return (FAILED);
-	}
-	core->main_img.img = NULL;
+		return (put_error("Create window failed\n", FAILED));
+	if (init_texture(core, &core->NO, map->texture->no_texture) == FAILED)
+		return (put_error("Texture NO failed", FAILED));
+	if (init_texture(core, &core->SO, map->texture->so_texture) == FAILED)
+		return (put_error("Texture SO failed", FAILED));
+	if (init_texture(core, &core->EA, map->texture->ea_texture) == FAILED)
+		return (put_error("Texture EA failed", FAILED));
+	if (init_texture(core, &core->WE, map->texture->we_texture) == FAILED)
+		return (put_error("Texture WE failed", FAILED));
 	init_player(map, &core->player);
+	core->main_img.img = NULL;
 	core->map = map;
 	return (SUCCESS);
 }

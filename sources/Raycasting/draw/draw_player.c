@@ -6,21 +6,22 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:44:18 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/12 14:00:29 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 09:23:20 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
+#include "mlx.h"
 
 #include <math.h>
 
 void	draw_player(t_core *core)
 {
-	t_rect		rect;
+	/* t_rect		rect; */
 	/* t_player	*player; */
 	/* t_pos		dir; */
 	/* t_point		a; */
-	
+	/*  */
 	/* player = &core->player; */
 	/* pixel_point(&rect.center, &player->pos, core); */
 	/* rect.l_height = 10; */
@@ -38,5 +39,5 @@ void	draw_player(t_core *core)
 	/* 	fov++; */
 	/* 	i++; */
 	/* } */
-	raycasting(core, &rect);
+	raycasting(core);
 }

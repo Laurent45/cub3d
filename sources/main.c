@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:45:47 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/12 13:56:15 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 07:33:59 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "Raycasting.h"
 #include "mlx.h"
 
+// TODO: Leaks
 int	main(int argc, char **argv, char **envp)
 {
 	t_map	*map;
@@ -28,11 +29,10 @@ int	main(int argc, char **argv, char **envp)
 	if (create_img(&core, &core.main_img, WIN_WIDTH, WIN_HEIGHT) == FAILED)
 		return (free_map(map, 0), 1);
 	init_hook(&core);
-	/* draw_map(&core.main_img, map); */
+ 	/* draw_map(&core.main_img, map); */
 	draw_player(&core);
 	mlx_put_image_to_window(core.mlx, core.win, core.main_img.img, 0, 0);
 	mlx_loop(core.mlx);
-
 	free_map(map, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:12:59 by ldubuche          #+#    #+#             */
-/*   Updated: 2022/10/12 14:15:35 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/13 09:22:20 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 
 # include "Parsing.h"
 
-# define SUCCESS	0
-# define FAILED		1
-# define WIN_WIDTH	1440.0
-# define WIN_HEIGHT	880.0
-# define WIN_TITLE	"Cub3d"
+# define SUCCESS		0
+# define FAILED			1
+# define WIN_WIDTH		1440.0
+# define WIN_HEIGHT		880.0
+# define WIN_TITLE		"Cub3d"
 # define ESC			65307
 # define ARROW_LEFT		65361
 # define ARROW_UP		65362
@@ -108,6 +108,10 @@ typedef struct s_core
 	void		*win;
 	t_img_info	main_img;
 	t_player	player;
+	t_img_info	NO;
+	t_img_info	SO;
+	t_img_info	EA;
+	t_img_info	WE;
 	t_map		*map;
 }	t_core;
 
@@ -125,6 +129,7 @@ void	put_pixel_img(t_img_info *img, int x, int y, int color);
 void	set_position(t_pos *pos, double x, double y);
 void	pixel_point(t_point *a, t_pos *pos, t_core *core);
 double	distance(t_pos *a, t_pos *b);
+int		put_error(char *message, int ret);
 
 // Draw
 void	draw_segment(t_point a, t_point b, int color, t_img_info *img);
@@ -132,6 +137,7 @@ void	draw_rect_fill(t_rect *rect, t_img_info *img);
 void	draw_rect(t_rect *rect, t_img_info *img);
 void	draw_map(t_img_info *img, t_map *map);
 void	draw_player(t_core *core);
+void	draw_wall(t_core *core, int x, t_raycast *raycast);
 
 // Event
 void	init_hook(t_core *core);
@@ -142,7 +148,7 @@ void	move_player(t_core *core, int keycode);
 void	press_esc(t_core *core);
 
 // Raycast
-void	raycasting(t_core *core, t_rect *rect);
+void	raycasting(t_core *core);
 
 int		create_img(t_core *core, t_img_info *img, int width, int height);
 #endif
