@@ -6,7 +6,7 @@
 #    By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 09:06:04 by lfrederi          #+#    #+#              #
-#    Updated: 2022/10/13 20:47:18 by lfrederi         ###   ########.fr        #
+#    Updated: 2022/10/14 12:48:54 by lfrederi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,13 +31,13 @@ SRCS	= 	sources/main.c \
 			sources/Parsing/valid_map.c \
 			sources/Parsing/valid_walls.c \
 			sources/Parsing/missing_info.c \
+			sources/Parsing/utils_2.c\
 			$(addprefix sources/Raycasting/, init.c raycasting.c \
 			$(addprefix draw/, draw_minimap.c draw_rectangle.c draw_segment.c draw_wall.c)\
 			$(addprefix event/, init.c action.c move_dir.c move_player.c press_esc.c display_minimap.c)\
 			$(addprefix utils/, error.c utils_math.c utils_map.c clear.c create_img.c))
 
 HEADERS = 	includes/Cub3D.h \
-			includes/Key_binding.h \
 			includes/Parsing.h \
 			includes/Raycasting.h
 
@@ -56,7 +56,8 @@ DIR_LIBEXT 	= /usr/include/../lib/
 LIBRARY	= -L ${DIR_LIBFT} -lft -L ${DIR_LIBMLX} -lmlx -L ${DIR_LIBEXT} -lXext 
 LIBFLAG = -lX11 -lm
 
-NAME	= cub3d
+NAME		= cub3d
+NAME_BONUS	= cub3d_bonus
 
 CC		= cc
 RM		= rm -rf
@@ -83,13 +84,18 @@ minilibx_make:
 minilibx_clean:
 	@make --silent clean -C ${DIR_LIBMLX}
 
+bonus: fclean libft_make minilibx_make ${OBJS} ${HEADERS}
+	@printf "%-15s ${_YELLOW}${_BOLD}$<${_END}...\n" "Compiling"	
+	@${CC} ${CFLAGS} ${OBJS} ${LIBRARY} ${LIBFLAG} -o ${NAME_BONUS}
+	@printf "\n${_GREEN}${_BOLD}${NAME} OK${_END}\n"
+
 clean:
 	@${RM} ${OBJS}
 	@$(RM) $(OBJS_PATH)
 
 fclean:	clean libft_clean minilibx_clean
-	@${RM} ${NAME} ${BONUS} 
+	@${RM} ${NAME} ${NAME_BONUS} 
 
 re:		fclean all
 
-.PHONY:	all clean fclean re libft_make libft_clean minilibx_clean minilibx_make
+.PHONY:	all clean fclean re libft_make libft_clean minilibx_clean minilibx_make bonus

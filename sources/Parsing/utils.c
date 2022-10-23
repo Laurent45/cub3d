@@ -27,7 +27,8 @@ int	strisint8(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i] < '0' || str[i] > '9') && (str[i] != '\n') && (str[i] != 13) && (str[i] != 10))
+		if ((str[i] < '0' || str[i] > '9') && (str[i] != '\n') \
+		&& (str[i] != 13) && (str[i] != 10))
 			return (1);
 		i++;
 	}
@@ -94,11 +95,4 @@ void	free_map(t_map *map, int i)
 		}
 		free(map);
 	}
-}
-
-int	compare(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
 }

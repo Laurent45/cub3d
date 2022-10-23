@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 08:05:12 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/13 20:23:21 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/14 11:23:25 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	draw_wall(t_core *core, int x, t_raycast *raycast)
 	t_point	b;
 	int		wall_height;
 
-	if (raycast->dist == 0)
+	if (raycast->dist <= 0.0)
 		wall_height = WIN_HEIGHT;
 	else
 		wall_height = round((1 / raycast->dist) * WIN_HEIGHT);

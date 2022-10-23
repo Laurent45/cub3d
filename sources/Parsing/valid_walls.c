@@ -87,9 +87,9 @@ int	valid_walls(t_map *map)
 	x = 0;
 	y = 0;
 	state = OUTSIDE;
-	if (!verif_horizontal(x, y, state, map))
+	if (verif_horizontal(x, y, state, map))
 		return (1);
-	if (!verif_vertical(x, y, state, map))
+	if (verif_vertical(x, y, state, map))
 		return (1);
 	return (0);
 }

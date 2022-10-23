@@ -6,7 +6,7 @@
 /*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 20:00:28 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/13 20:20:56 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/14 11:18:37 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,22 @@ int	is_wall(t_map *map, t_pos *a, int dir)
 
 int	in_wall(t_map *map, t_pos *pos)
 {
-	if (floor(pos->x) <= 0.0 || floor(pos->y) <= 0.0)
-		return (1);
-	if ((map->map[(int) pos->y][(int) pos->x] == 0) \
-		|| (map->map[(int) pos->y][(int) pos->x] == 2))
-		return (0);
-	return (1);
+	t_pos	tmp;
+	double	angle;
+
+	angle = 0.0;
+	while (angle < 360)
+	{
+		tmp.x = pos->x + 0.1 * cos(to_rad(angle));
+		tmp.y = pos->y + 0.1 * sin(to_rad(angle));
+		if (floor(tmp.x) <= 0.0 || floor(tmp.y) <= 0.0)
+			return (1);
+		if ((map->map[(int) tmp.y][(int) tmp.x] != 0) \
+			&& (map->map[(int) tmp.y][(int) tmp.x] != 2))
+			return (1);
+		angle++;
+	}
+	return (0);
 }
 
 void	set_position(t_pos *pos, double x, double y)

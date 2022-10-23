@@ -57,12 +57,12 @@ int	valid_map(int fd, t_map **map)
 			stock_texture(line, map);
 			line = next_line(fd, line);
 		}
-		else if (map_line(line, 0) == 0)
+		else if (map_line(line, 0, fd) == 0)
 			break ;
 		else
 			return (p_error_int(ERR_NOT_VALID_LINE, *map, fd, line));
 	}
-	if (read_map(fd, line, *map))
+	if (read_map(fd, line, map))
 		return (1);
 	return (0);
 }

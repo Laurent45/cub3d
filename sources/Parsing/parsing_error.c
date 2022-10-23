@@ -12,66 +12,75 @@
 
 #include "Cub3D.h"
 
-/* Voir pour remplacer avec un enum */
-t_map	*p_error(t_error type, char *cub_file, int fd)
+t_map	*p_error(t_error type, char *cub_file)
 {
-	printf("Error\n");
+	ft_putstr_fd("Error\n", 2);
 	if (type == ERR_ARG_NBR)
-		printf("./cub3d file.cub\n");
+		ft_putstr_fd("./cub3d file.cub\n", 2);
 	else if (type == ERR_EMPTY_ENV)
-		printf("Environnement is empty\n");
+		ft_putstr_fd("Environnement is empty\n", 2);
 	else if (type == ERR_VALID_NAME)
-		printf("%s : not a valid name\n", cub_file);
+	{
+		ft_putstr_fd(cub_file, 2);
+		ft_putstr_fd(" : not a valid name\n", 2);
+	}
 	else if (type == ERR_VALID_FILE)
 	{
-		close(fd);
-		printf("%s : %s\n", cub_file, strerror(errno));
+		ft_putstr_fd(cub_file, 2);
+		ft_putstr_fd(" : ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
 	}
 	else if (type == ERR_NOT_VALID_LINE)
-		printf("Invalid line found in the file\n");
+		ft_putstr_fd("Invalid line found in the file\n", 2);
 	else if (type == ERR_MISSING_INFO)
-		printf("Invalid file : missing information\n");
+		ft_putstr_fd("Invalid file : missing information\n", 2);
 	return (NULL);
 }
 
 int	*p_error_map(t_error type, int *tab)
 {
-	printf("Error\n");
+	ft_putstr_fd("Error\n", 2);
 	if (type == ERR_MTPL_CHARA)
 	{
 		free(tab);
-		printf("Invalid map : multiple character detected\n");
+		ft_putstr_fd("Invalid map : multiple character detected\n", 2);
 	}
 	else if (type == ERR_WRONG_CHARA)
 	{
 		free(tab);
-		printf("Invalid map : map must contain only 0, 1 , N, S, E ,W\n");
+		ft_putstr_fd("Invalid map : map must contain only 0, 1 , N, \
+		S, E ,W\n", 2);
 	}
 	else if (type == ERR_NOT_VALID_LINE)
-		printf("Invalid line found in the file\n");
+		ft_putstr_fd("Invalid line found in the file\n", 2);
 	return (NULL);
 }
 
 int	p_error_int(t_error type, t_map *map, int fd, char *line)
 {
-	printf("Error\n");
+	ft_putstr_fd("Error\n", 2);
 	close(fd);
 	if (type == ERR_MALLOC)
-		printf("Memory allocation fail\n");
+		ft_putstr_fd("Memory allocation fail\n", 2);
 	else
-		free_map(map, -1);
+		free_map(map, 0);
 	if (type == ERR_EMPTY_FILE)
-		printf("File is empty\n");
+		ft_putstr_fd("File is empty\n", 2);
 	else if (type == ERR_NOT_VALID_LINE)
 	{
-		printf("Invalid line : %s", line);
-		free(line);
+		ft_putstr_fd("Invalid line : ", 2);
+		ft_putstr_fd(line, 2);
 	}
 	else if (type == ERR_MISSING_INFO)
-		printf("Invalid file : missing information\n");
+		ft_putstr_fd("Invalid file : missing information\n", 2);
 	else if (type == ERR_MISSING_MAP)
-		printf("Invalid file : missing map\n");
+		ft_putstr_fd("Invalid file : missing map\n", 2);
 	else if (type == ERR_MALLOC_2)
-		printf("Memory allocation fail\n");
+		ft_putstr_fd("Memory allocation fail\n", 2);
+	else if (type == ERR_MAP)
+		ft_putstr_fd("Map is not in a valid format\n", 2);
+	if (line)
+		free(line);
 	return (1);
 }

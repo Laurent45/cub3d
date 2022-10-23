@@ -6,7 +6,7 @@
 /*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:12:59 by ldubuche          #+#    #+#             */
-/*   Updated: 2022/10/13 20:48:34 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/14 11:21:48 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define SOUTH			90.0
 # define EAST			0.0
 # define WEST			180.0
-# define VELOCITY		5
+# define VELOCITY		2.5
 
 typedef struct s_point
 {

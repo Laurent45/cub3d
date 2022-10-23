@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfrederi <lfrederi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldubuche <ldubuche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:54:00 by lfrederi          #+#    #+#             */
-/*   Updated: 2022/10/13 16:46:20 by lfrederi         ###   ########.fr       */
+/*   Updated: 2022/10/14 12:21:15 by lfrederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@
 
 static void	init_player(t_map *map, t_player *player)
 {
-	player->pos.x = map->posX + 0.5;
-	player->pos.y = map->posY + 0.5;
+	player->pos.x = map->posx + 0.5;
+	player->pos.y = map->posy + 0.5;
 	player->pos_tmp.x = player->pos.x;
 	player->pos_tmp.y = player->pos.y;
-	if (map->direction == NORTH)
+	if (map->direction == DIR_NORTH)
 		player->dir = 270.0;
-	if (map->direction == SOUTH)
+	if (map->direction == DIR_SOUTH)
 		player->dir = 90.0;
-	if (map->direction == EAST)
+	if (map->direction == DIR_EAST)
 		player->dir = 0.0;
-	if (map->direction == WEST)
+	if (map->direction == DIR_WEST)
 		player->dir = 180.0;
 	player->f_front = 0.0;
 	player->f_side = 0.0;
@@ -69,6 +69,7 @@ static void	set_null(t_core *core)
 
 int	init(t_map *map, t_core *core)
 {
+	core->map = map;
 	set_null(core);
 	core->mlx = mlx_init();
 	if (!core->mlx)
@@ -85,6 +86,5 @@ int	init(t_map *map, t_core *core)
 	if (init_texture(core, &core->img_we, map->texture->we_texture) == FAILED)
 		return (put_error("Texture WE failed", FAILED));
 	init_player(map, &core->player);
-	core->map = map;
 	return (SUCCESS);
 }

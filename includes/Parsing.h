@@ -35,11 +35,11 @@ typedef enum e_error
 
 typedef enum e_direction
 {
-	NO_DIRECTION,
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST
+	NO_DIRECTION = 0,
+	DIR_NORTH = 1,
+	DIR_SOUTH = 2,
+	DIR_WEST = 3,
+	DIR_EAST = 4
 }	t_direction;
 
 typedef enum e_state
@@ -85,8 +85,8 @@ typedef struct s_map
 	int			height;
 	t_texture	*texture;
 	t_direction	direction;
-	int			posX;
-	int			posY;
+	int			posx;
+	int			posy;
 }	t_map;
 
 /*Parsing*/
@@ -99,8 +99,8 @@ int		missing_info(t_map **map);
 int		open_file(char *cub_file, int *fd);
 void	stock_texture(char *line, t_map **map);
 int		texture_line(char *line);
-int		read_map(int fd, char *line, t_map *map);
-int		map_line(char *line, int j);
+int		read_map(int fd, char *line, t_map **map);
+int		map_line(char *line, int j, int fd);
 
 /*Utils*/
 char	*next_line(int fd, char *line);
@@ -108,10 +108,12 @@ int		strisint8(char *str);
 void	free_split(char **split_tab);
 void	free_map(t_map *map, int i);
 int		compare(int a, int b);
+int		**free_line(char *line, int **tab, int i, int height);
+void	free_tab(int **tab, int i, int height);
 
 /*Error management*/
 
-t_map	*p_error(t_error type, char *cub_file, int fd);
+t_map	*p_error(t_error type, char *cub_file);
 int		*p_error_map(t_error type, int *tab);
 int		p_error_int(t_error type, t_map *map, int fd, char *line);
 

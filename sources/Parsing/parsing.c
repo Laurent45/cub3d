@@ -20,19 +20,19 @@ t_map	*parsing(int argc, char **argv, char **envp)
 	fd = -1;
 	map = NULL;
 	if (argc != 2)
-		return (p_error(ERR_ARG_NBR, NULL, fd));
+		return (p_error(ERR_ARG_NBR, NULL));
 	if (!envp)
-		return (p_error(ERR_EMPTY_ENV, NULL, fd));
+		return (p_error(ERR_EMPTY_ENV, NULL));
 	if (check_cub(argv))
-		return (p_error(ERR_VALID_NAME, argv[1], fd));
+		return (p_error(ERR_VALID_NAME, argv[1]));
 	if (open_file(argv[1], &fd))
-		return (p_error(ERR_VALID_FILE, argv[1], fd));
+		return (p_error(ERR_VALID_FILE, argv[1]));
 	if (valid_map(fd, &map))
 		return (NULL);
 	if (missing_info(&map))
 	{
 		free_map(map, 0);
-		return (p_error(ERR_MISSING_INFO, NULL, fd));
+		return (p_error(ERR_MISSING_INFO, NULL));
 	}
 	return (map);
 }

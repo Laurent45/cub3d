@@ -27,8 +27,12 @@ int	check_rgb(char *rgb)
 	split_rgb = ft_split(rgb, ',');
 	if (!split_rgb)
 		return (1);
-	while (split_rgb[i] != NULL)
+	while (split_rgb[i] && split_rgb[i] != NULL)
+	{
+		if (split_rgb[i][0] == '\n')
+			return (free_split_return_1(split_rgb));
 		i++;
+	}
 	if (i != 3)
 		return (free_split_return_1(split_rgb));
 	while (--i >= 0)
@@ -56,7 +60,7 @@ int	texture_line(char *line)
 			&& ft_strncmp(split_line[0], "F", 3)
 			&& ft_strncmp(split_line[0], "C", 3)))
 		return (free_split_return_1(split_line));
-	if (ft_strncmp(split_line[0], "c", 2) == 0
+	if (ft_strncmp(split_line[0], "C", 2) == 0
 		|| ft_strncmp(split_line[0], "F", 2) == 0)
 	{
 		if (check_rgb(split_line[1]))
